@@ -223,9 +223,63 @@ footer{margin-top:52px; border-top:1px solid var(--rule-strong); padding-top:16p
 }
 #tip.on{opacity:1; transform:none}
 
+/* ——— изображения ——— */
+figure{margin:0}
+.shot{border:1px solid var(--rule-strong); background:var(--surface); padding:10px; box-shadow:var(--shadow)}
+.shot img{display:block; width:100%; height:auto}
+.figcap{font-size:14px; line-height:1.45; color:var(--ink-2); margin-top:10px}
+.figcap b{color:var(--ink)}
+.srcline{
+  display:block; font-family:var(--mono); font-size:11px; letter-spacing:.05em;
+  color:var(--ink-3); margin-top:6px;
+}
+
+/* сравнение «до / после» */
+.cmp{margin-top:4px}
+.cmp-frame{
+  position:relative; overflow:hidden; border:1px solid var(--rule-strong);
+  background:var(--surface-2); line-height:0; touch-action:pan-y;
+}
+.cmp-frame img{display:block; width:100%; height:auto}
+.cmp-top{position:absolute; inset:0; width:50%; overflow:hidden; will-change:width}
+.cmp-top img{position:absolute; top:0; left:0; height:100%; width:auto; max-width:none}
+.cmp-line{
+  position:absolute; top:0; bottom:0; left:50%; width:2px; background:var(--paper);
+  box-shadow:0 0 0 1px rgba(0,0,0,.35); pointer-events:none; will-change:left;
+}
+.cmp-grip{
+  position:absolute; top:50%; left:50%; width:40px; height:40px; margin:-20px 0 0 -20px;
+  border-radius:50%; background:var(--paper); border:1px solid var(--rule-strong);
+  pointer-events:none; display:grid; place-items:center;
+}
+.cmp-grip::before{
+  content:"‹ ›"; font-family:var(--mono); font-size:15px; color:var(--ink); letter-spacing:-1px;
+}
+.cmp-range{
+  position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0;
+  cursor:ew-resize; -webkit-appearance:none; appearance:none; background:transparent;
+}
+.cmp-range::-webkit-slider-thumb{-webkit-appearance:none; width:44px; height:100%; cursor:ew-resize}
+.cmp-range::-moz-range-thumb{width:44px; height:400px; border:0; background:transparent; cursor:ew-resize}
+.cmp-range:focus-visible + .cmp-line{outline:2px solid var(--blue); outline-offset:2px}
+.cmp-badge{
+  position:absolute; bottom:10px; font-family:var(--mono); font-size:11px; letter-spacing:.06em;
+  text-transform:uppercase; padding:4px 8px; line-height:1.3; pointer-events:none;
+  background:color-mix(in srgb, var(--paper) 88%, transparent); color:var(--ink); max-width:44%;
+}
+.cmp-badge.l{left:10px}
+.cmp-badge.r{right:10px; text-align:right}
+
+/* фотополоса */
+.photos{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:22px}
+.photos .figcap{font-size:13.5px}
+.photos img{aspect-ratio:4/3; object-fit:cover}
+.photos .wide img{aspect-ratio:auto}
+
 @media (prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important}}
 @media (max-width:860px){
   .two,.sides,.aip,.legend,.srcs{grid-template-columns:1fr}
+  .photos{grid-template-columns:1fr}
   .figs{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:560px){
@@ -279,7 +333,28 @@ footer{margin-top:52px; border-top:1px solid var(--rule-strong); padding-top:16p
 <section>
   <div class="sec-head"><span class="n">01</span><h2>Что именно построят</h2></div>
 
-  <div class="figs">
+  <figure class="cmp">
+    <div class="cmp-frame" id="cmpFrame">
+      <img src="img/aero-tunnel-ai.jpg" alt="Визуализация нейросети: на месте сквера открытая выемка тоннеля с четырьмя полосами движения" width="1600" height="899">
+      <div class="cmp-top" id="cmpTop">
+        <img src="img/aero-skver-2021.jpg" alt="Аэрофотосъёмка: сквер на улице Марии Поливановой между жилыми домами, за ним пути Киевского направления" width="1600" height="899">
+      </div>
+      <input type="range" class="cmp-range" id="cmpRange" min="0" max="100" step="0.5" value="50" aria-label="Сдвиньте, чтобы сравнить сквер и визуализацию тоннеля">
+      <div class="cmp-line" id="cmpLine"><span class="cmp-grip"></span></div>
+      <span class="cmp-badge l">Сквер · 10.12.2021</span>
+      <span class="cmp-badge r">Визуализация нейросети</span>
+    </div>
+    <figcaption class="figcap">
+      <b>Слева — то, что есть: аэрофотосъёмка сквера 10 декабря 2021 года.</b> Справа — визуализация,
+      сделанная нейросетью по этому же кадру в сентябре 2026 года. <b>Это не проектное решение
+      и не официальная иллюстрация</b>: проектная документация с положительным заключением экспертизы
+      не опубликована, поэтому как именно будет выглядеть сооружение, по имеющимся материалам
+      установить нельзя. Подтверждены документами только параметры ниже.
+      <span class="srcline">Съёмка с дрона · визуализация — нейросеть, сентябрь 2026 · <span class="tag unk">Не подтверждено</span></span>
+    </figcaption>
+  </figure>
+
+  <div class="figs" style="margin-top:26px">
     <div class="fig">
       <span class="v">590<small>м</small></span>
       <span class="k">длина тоннеля с рампами; перекрытая часть — 227 м</span>
@@ -513,6 +588,24 @@ footer{margin-top:52px; border-top:1px solid var(--rule-strong); padding-top:16p
     </div>
   </div>
 
+  <div class="two" style="margin-top:22px">
+    <figure class="shot">
+      <img src="img/ppt-list13.jpg" alt="Фрагмент чертежа планировочной организации: участок № 24 площадью 2,01 га на пересечении улицы Марии Поливановой и Большой Очаковской улицы" width="830" height="476" loading="lazy">
+    </figure>
+    <div>
+      <h3 style="margin-bottom:10px">Тот же участок на чертеже</h3>
+      <p class="note">Косой штриховкой показана зона планируемого размещения улично-дорожной сети,
+      синим пунктиром — граница участка. Выноска подписывает участок: <b>№ 24, площадь 2,01 га,
+      код разрешённого использования 12.0.1</b> — земельные участки общего пользования под
+      объекты улично-дорожной сети.</p>
+      <p class="note">Красной линией с крестиками вдоль улицы Марии Поливановой обозначены, по
+      условным обозначениям листа, <b>отменяемые границы объекта природного комплекса</b> — это и
+      есть сквер, исключаемый пунктом 2 постановления.</p>
+      <p class="note-mono">Приложение 1 к ПП № 1587-ПП, планировочная организация территории,
+      лист 13 из 13, М 1:2000. Фрагмент листа.</p>
+    </div>
+  </div>
+
   <p class="note prose wide" style="margin-top:16px">Площадь участка № 24 <b>не равна</b> площади сквера, площади котлована или площади сплошной вырубки. Окончательный объём удаления деревьев можно установить только по дендроплану и перечётной ведомости — их в комплекте нет. <span class="tag unk">Не подтверждено</span></p>
 </section>
 
@@ -604,6 +697,32 @@ footer{margin-top:52px; border-top:1px solid var(--rule-strong); padding-top:16p
       <p class="note">Позицию участника и рекомендацию комиссии нельзя считать одним показателем: строки 67 и 71 — поддержка с замечаниями, хотя комиссия замечания учитывать не рекомендует.</p>
       <p class="note-mono">Проверено построчно: все 343 строки заключения № 427/21.</p>
     </div>
+  </div>
+
+  <div class="two" style="margin-top:30px">
+    <div>
+      <h3 style="margin-bottom:10px">Как район узнал о тоннеле</h3>
+      <p class="note">Обсуждения прошли в мае, постановление вышло в октябре — а широкая
+      общественность узнала о судьбе сквера <b>3 декабря 2021 года</b>, из заметки и. о. главы
+      управы Юрия Кругова «Тоннель решит проблему» в районной газете. Статью переслали в районный
+      чат, и только тогда жители нашли материалы обсуждений и само постановление.</p>
+      <p class="note">Заметка отвечает на вопрос читательницы о связи улиц Марии Поливановой и
+      Вокзальной, называет проект планировки «проезд Стройкомбината, вл. 1» <b>разработанным,
+      а не утверждённым</b> — хотя постановление было подписано двумя месяцами ранее, — и
+      <b>сквер в ней не упомянут ни разу</b>.</p>
+      <p class="note-mono">Ещё в марте 2021 года заместитель главы управы рассказывал жителям о
+      предстоящем благоустройстве сквера, а на 2022 год благоустройство стояло в программе
+      «Мой район». <span class="tag res">Со слов жителей</span></p>
+    </div>
+    <figure class="shot">
+      <img src="img/gazeta-2021.jpg" alt="Вырезка из газеты «На Западе Москвы»: заметка «Тоннель решит проблему» с фотографией пятиэтажного дома на заснеженной улице" width="848" height="604" loading="lazy">
+      <figcaption class="figcap">
+        «Разработан проект планировки территории по адресу: проезд Стройкомбината, вл. 1. Он
+        предусматривает строительство автомобильного тоннеля, соединяющего расположенные по разные
+        стороны железнодорожных путей улицы Марии Поливановой и Вокзальную».
+        <span class="srcline">«На Западе Москвы» № 47 (684), 3–9 декабря 2021, полоса 6 · номер подписан в печать 02.12.2021 <span class="tag doc">Документ</span></span>
+      </figcaption>
+    </figure>
   </div>
 
   <div class="sides" style="margin-top:28px">
@@ -750,7 +869,23 @@ footer{margin-top:52px; border-top:1px solid var(--rule-strong); padding-top:16p
   <div class="sec-head"><span class="n">07</span><h2>Позиция жителей</h2></div>
   <p class="prose">Аргументы и требования инициативной группы. Оценки нужности тоннеля и качества ответов органов <b>не выдаются</b> за независимое транспортное или правовое заключение.</p>
 
-  <div class="sides" style="margin-top:24px">
+  <div class="photos">
+    <figure>
+      <div class="shot"><img src="img/skver-elka-2021.jpg" alt="Сквер вечером: украшенная новогодняя ёлка, скамейки, фонари, детская площадка" width="1080" height="607" loading="lazy"></div>
+      <figcaption class="figcap">Городская ёлка в сквере, декабрь 2021 года. Сквер после капитального ремонта 2015 года жители называли «народным парком»: здесь проходили районные праздники и акции памяти Марии Поливановой.</figcaption>
+    </figure>
+    <figure>
+      <div class="shot"><img src="img/skver-zima-2021.jpg" alt="Заснеженный сквер вечером: аллеи, скамейки, детская площадка, ёлка" width="1400" height="1050" loading="lazy"></div>
+      <figcaption class="figcap">14 декабря 2021 года — через полторы недели после того, как район узнал о тоннеле, и за десять дней до первого коллективного обращения.</figcaption>
+    </figure>
+    <figure>
+      <div class="shot"><img src="img/skver-may-2024.jpg" alt="Сквер на закате: новая детская площадка с качелями, круговые скамьи вокруг деревьев, уличные тренажёры" width="1400" height="1050" loading="lazy"></div>
+      <figcaption class="figcap">13 мая 2024 года: площадки, тренажёры и скамьи, появившиеся при благоустройстве. По сведениям жителей, работы шли с июля 2022 года и были завершены 29 июня 2024 года — приёмочного акта в комплекте нет.</figcaption>
+    </figure>
+  </div>
+  <p class="note-mono" style="margin-top:12px">Фотографии жителей района. Даты — по метаданным снимков; EXIF при публикации снят.</p>
+
+  <div class="sides" style="margin-top:26px">
     <div class="side a">
       <h3>Связи через железную дорогу уже есть</h3>
       <div class="who">возражение · требует проверки обмером</div>
@@ -891,6 +1026,17 @@ footer{margin-top:52px; border-top:1px solid var(--rule-strong); padding-top:16p
     btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-f') === f)); });
   }
   btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.getAttribute('data-f')); }); });
+
+  // —— сравнение «до / после» ——
+  var frame = document.getElementById('cmpFrame');
+  if (frame) {
+    var cmpTop = document.getElementById('cmpTop'),
+        cmpLine = document.getElementById('cmpLine'),
+        cmpRange = document.getElementById('cmpRange');
+    var setPos = function(v){ cmpTop.style.width = v + '%'; cmpLine.style.left = v + '%'; };
+    cmpRange.addEventListener('input', function(){ setPos(cmpRange.value); });
+    setPos(cmpRange.value);
+  }
 
   // —— подсказки на диаграммах ——
   var tip = document.getElementById('tip');
