@@ -299,10 +299,87 @@ figure{margin:0}
   .bar-row{grid-template-columns:1fr; gap:5px}
   .sheet{padding-inline:12px}
 }
+.hero>*,.two>*,.sides>*,.aip>*,.photos>*,.srcs>*,.gaps>*{min-width:0}
+.hero-photo{width:100%}
+/* Visual reading system: landscape, evidence and a navigable chronology. */
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+:root{--paper:#f5f4ef;--surface:#fffefa;--surface-2:#eceee6;--ink:#20352d;--ink-2:#526058;--ink-3:#69756c;--rule:#dce0d5;--rule-strong:#b9c3b6;--green:#285a42;--shadow:0 8px 32px #20352d08}
+:root[data-theme="dark"]{--paper:#111b17;--surface:#19251f;--surface-2:#22332a;--ink:#e8eee5;--ink-2:#bac7bd;--ink-3:#95a79a;--rule:#34473b;--rule-strong:#506657;--green:#9ec7a5;--shadow:0 8px 32px #0002}
+body{margin:0;line-height:1.7}
+.wrap{max-width:1200px;padding-inline:32px}
+::selection{background:#b7d2ab;color:#173327}
+:focus-visible{outline:3px solid var(--green);outline-offset:5px}
+a{color:var(--green);text-underline-offset:4px}
+a:hover{text-decoration-thickness:2px}
+.skip-link{position:fixed;top:-80px;left:20px;z-index:100;background:var(--surface);padding:12px 20px}
+.skip-link:focus{top:12px}
+.site-nav{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--paper) 95%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--rule)}
+.nav-inner{max-width:1200px;margin:auto;padding:12px 32px;display:flex;align-items:center;gap:22px}
+.brand{display:flex;align-items:center;gap:9px;white-space:nowrap;color:var(--ink);font-size:14px;font-weight:700;text-decoration:none}
+.brand-mark{display:grid;place-items:center;width:30px;height:30px;background:var(--green);border-radius:50% 50% 50% 6px;color:var(--paper);font-size:17px}
+.nav-links{display:flex;gap:4px;overflow:auto;scrollbar-width:none;flex:1}
+.nav-links a{white-space:nowrap;text-decoration:none;font-size:12px;padding:9px 11px;border-radius:6px;color:var(--ink-2)}
+.nav-links a:hover,.nav-links a[aria-current="location"]{background:var(--surface-2);color:var(--ink)}
+.theme-toggle{min-width:42px;min-height:42px;border:1px solid var(--rule);border-radius:50%;color:var(--ink);background:var(--surface);font:20px var(--sans);cursor:pointer}
+header.head{padding-top:36px}.head-rule{display:none}.head-meta{margin-bottom:24px}.eyebrow{color:var(--ink-2);font-size:11px}
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;padding:22px 0 32px}
+.hero-copy{padding-block:16px}.hero-kicker{font-size:12px;color:var(--green);font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+h1{font-size:clamp(48px,5.6vw,78px);line-height:1;letter-spacing:-.055em;font-weight:700}
+h1 .h1-sub{font-size:clamp(17px,1.65vw,21px);line-height:1.5;font-weight:400;letter-spacing:0;max-width:28ch;margin-top:24px}
+.lede{font-size:16px;line-height:1.75;max-width:52ch;margin-top:24px}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.hero-actions a{min-height:46px;display:inline-flex;align-items:center;gap:16px;padding:11px 18px;border:1px solid var(--rule-strong);border-radius:7px;text-decoration:none;font-size:13px;font-weight:600}
+.hero-actions .primary{background:var(--green);border-color:var(--green);color:var(--paper)}
+.hero-photo{position:relative;align-self:stretch;min-height:430px;border-radius:12px;overflow:hidden;background:#284c38}
+.hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:45% center}
+.hero-photo::after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,#0e251de6)}
+.hero-photo figcaption{position:absolute;z-index:1;bottom:24px;left:26px;right:26px;color:#fff;font-size:12px;line-height:1.5}
+.hero-photo figcaption strong{display:block;font-size:22px;font-weight:500;margin-bottom:7px}
+.hero-photo-label{position:absolute;top:18px;left:18px;z-index:1;color:#fff;background:#183c2de0;padding:7px 11px;border-radius:4px;font-size:11px;letter-spacing:.04em}
+.bounds{border:1px solid var(--rule);border-left:3px solid var(--ochre);border-radius:0 8px 8px 0;padding:19px 22px;background:var(--surface)}
+header .bounds{margin-top:0}.bounds h3{font-size:11px}.bounds ul{display:flex;flex-wrap:wrap;gap:6px 28px;list-style:none;padding:0}.bounds li{font-size:13px}
+header .bounds .note{font-size:12px;max-width:100ch}
+.legend{margin-top:20px;gap:18px;border:0;background:none}.legend>div{background:none;border-left:1px solid var(--rule-strong);padding:2px 16px}.legend p{font-size:12px;line-height:1.6}
+.tag{font-size:9px;border-radius:4px;letter-spacing:.04em;padding:3px 7px;line-height:1.5;max-width:100%}
+section{padding-top:88px;scroll-margin-top:0}.sec-head{gap:16px;padding-bottom:20px;margin-bottom:28px;border-color:var(--rule)}
+.sec-head .n{display:grid;place-items:center;border:1px solid var(--rule-strong);width:34px;height:34px;border-radius:50%;color:var(--green);font-size:11px;font-family:var(--mono);flex-shrink:0}
+h2{font-size:clamp(26px,3vw,38px);letter-spacing:-.035em;line-height:1.2}h3{letter-spacing:-.02em}.prose{max-width:66ch}.prose.wide{max-width:80ch}
+.figs{border:0;background:none;gap:14px}.fig{border:1px solid var(--rule);border-top:3px solid var(--green);border-radius:8px;padding:22px;gap:12px}.fig .v{font-size:39px;color:var(--ink)}.fig .k{font-size:13px;line-height:1.55}.fig .tag{margin-top:auto}
+.sheet{border-color:var(--rule);border-radius:10px;padding:24px 24px 0}.stamp{font-size:10px;padding-block:13px;line-height:1.6}
+.two,.sides{gap:30px}.spec div{padding-block:11px}.spec dd{flex-shrink:0}.shot{padding:7px;border-color:var(--rule);border-radius:9px;overflow:hidden}.shot img{border-radius:4px}.figcap{font-size:12px;line-height:1.7;max-width:92ch}
+.cmp-frame{border-radius:10px;border-color:var(--rule)}.cmp-grip{width:48px;height:48px;margin:-24px 0 0 -24px}.cmp-badge{border-radius:5px;font-size:10px;padding:8px 11px}.cmp-frame:focus-within{outline:3px solid var(--green);outline-offset:4px}
+.chart{padding:24px;background:var(--surface);border:1px solid var(--rule);border-radius:10px}.bar-row{padding-block:12px}.bar{height:30px}.seg{border-radius:3px}.seg.out{padding:0;min-width:0}.key{border-top:1px solid var(--rule);padding-top:18px;font-size:12px}.bar-row .lbl{font-size:12px;line-height:1.6}.bar-row .lbl b{font-size:14px}
+.aip{gap:16px;border:0;background:none}.aip>div{border:1px solid var(--rule);border-radius:9px;padding:22px}.aip>div:last-child{border-top:3px solid var(--green)}.aip .cap{margin-top:7px}.yr{padding-block:7px}.yr .track,.yr .fill{border-radius:3px}.yr .track{height:18px}
+.filters{gap:7px;padding:5px;background:var(--surface-2);width:fit-content;border-radius:9px}.filters button{border:0;background:none;min-height:40px;padding:10px 15px;border-radius:6px;letter-spacing:0;text-transform:none;font-size:12px}.filters button[aria-pressed="true"]{background:var(--green);color:var(--paper)}
+.tl{border-top:0}.tl-era{font-size:11px;color:var(--green);font-weight:600;padding:27px 18px 12px;background:var(--surface-2);border:0;border-radius:7px;margin-top:24px}.ev{grid-template-columns:155px 1fr;gap:26px;padding:19px 18px;border-bottom:1px solid var(--rule)}.ev .d{font-family:var(--mono);font-size:11px;line-height:1.7}.ev .t{font-size:14px;line-height:1.8}.ev .t .tag{margin-left:8px}.ev.key-ev{background:var(--surface);border-left:3px solid var(--green)}.ev.key-ev .t{font-size:16px;line-height:1.65}.ev.key-ev .d{color:var(--green)}
+.side{padding:24px;background:var(--surface);border-radius:8px;border:1px solid var(--rule);border-top:3px solid var(--green)}.side.b{border-top-color:var(--blue)}.side .who{font-size:10px;line-height:1.7;margin-top:8px}.side ul{font-size:14px;line-height:1.7}
+.reqs{border:0;background:none;gap:12px}.reqs li{border:1px solid var(--rule);border-radius:8px;font-size:14px;line-height:1.7;padding:22px 24px 22px 65px}.reqs li::before{left:22px;top:24px;color:var(--green)}
+.gaps{gap:16px;border:0;background:none}.gap{border:1px solid var(--rule);border-radius:9px;padding:24px}.gap h3{font-size:17px;margin-bottom:12px}.gap p{font-size:14px;line-height:1.75}
+.srcs{gap:40px}.srcs li{padding-block:8px;border-bottom:1px solid var(--rule);font-size:13px;line-height:1.7;overflow-wrap:anywhere}.srcs ul{list-style:none;padding:0}.srcs h3{font-size:11px;color:var(--green)}footer{max-width:none;font-size:12px;line-height:1.8;padding-top:25px}
+.back-top{display:inline-flex;gap:20px;align-items:center;text-decoration:none;margin-top:24px;font-weight:600;font-size:13px}
+@media(max-width:1000px){.brand{font-size:12px}.nav-inner{gap:12px}.nav-links a{padding-inline:8px}.hero{gap:28px}.hero-photo{min-height:450px}.fig{padding:18px}.fig .v{font-size:32px}}
+@media(max-width:860px){.nav-inner{flex-wrap:wrap;gap:8px;padding:8px 20px}.brand{flex:1}.theme-toggle{order:1}.nav-links{order:2;flex-basis:100%;margin-inline:-6px}.nav-links a{font-size:11px;padding:7px 9px}.wrap{padding-inline:22px}.hero{grid-template-columns:1fr;gap:24px;padding-top:0}.hero-photo{min-height:0;height:320px;aspect-ratio:auto}.hero-copy{padding-top:0}h1{font-size:clamp(48px,9vw,72px)}h1 .h1-sub{max-width:42ch;font-size:19px}.lede{max-width:68ch}.hero-photo figcaption strong{font-size:19px}.legend{gap:14px;grid-template-columns:repeat(3,1fr)}.legend>div{padding-inline:10px}.legend p{font-size:11px}.two,.sides,.aip,.srcs{grid-template-columns:1fr}.figs{grid-template-columns:repeat(2,1fr)}.fig .v{font-size:36px}.photos{grid-template-columns:repeat(2,1fr)}.photos>figure:last-child{grid-column:1/-1}.aip{gap:12px}section{padding-top:64px;scroll-margin-top:0}html{scroll-padding-top:125px}}
+@media(max-width:560px){.wrap{padding-inline:18px}.head-meta{gap:7px;margin-bottom:22px}.eyebrow{font-size:9px}.hero{gap:20px}.hero-kicker{font-size:10px;margin-bottom:16px}h1{font-size:53px}.lede{font-size:14px;margin-top:20px}h1 .h1-sub{font-size:17px;margin-top:18px}.hero-actions{gap:8px}.hero-actions a{font-size:12px;padding-inline:14px}.hero-photo{min-height:0;height:270px}.hero-photo figcaption{left:18px;bottom:18px}.hero-photo-label{font-size:10px}.bounds{padding:16px}.bounds ul{display:block}.bounds li{font-size:12px}.legend{grid-template-columns:1fr;gap:12px}.legend>div{display:grid;grid-template-columns:135px 1fr;align-items:start;gap:10px;padding-left:12px}.legend .tag{justify-self:start}.legend p{margin:0;font-size:11px}.figs{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.fig{padding:15px 12px}.fig .v{font-size:30px}.fig .k{font-size:11px}.fig .tag{font-size:8px;white-space:normal}.sec-head{flex-wrap:nowrap;gap:12px}.sec-head .n{width:29px;height:29px;font-size:10px}h2{font-size:27px}.sheet{padding:16px 12px 0}.chart{padding:18px}.bar-row{grid-template-columns:1fr;gap:8px;padding-right:12px}.key{font-size:11px}.ev{grid-template-columns:1fr;gap:8px;padding:18px 12px}.ev .d{font-size:11px;color:var(--green)}.ev .t{font-size:13px}.ev .t .tag{margin:7px 0 0;display:table}.ev.key-ev .t{font-size:14px}.tl-era{font-size:10px;padding:16px 12px}.filters{width:100%;gap:4px}.filters button{flex:1 1 40%;font-size:11px;padding-inline:8px}.photos,.gaps{grid-template-columns:1fr}.photos>figure:last-child{grid-column:auto}.gap,.side{padding:20px}.cmp-badge{font-size:8px;padding:6px;max-width:42%}.cmp-grip{width:36px;height:36px;margin:-18px}.spec div{font-size:12px}.spec dd{font-size:12px}.note{font-size:13px}.hero-actions a{min-height:44px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{.site-nav,.hero-actions,.filters,.back-top,.skip-link{display:none}.wrap{max-width:none;padding:0}.hero-photo{min-height:240px}section{padding-top:30px}.ev[hidden],.tl-era[hidden]{display:grid!important}.ev,.fig,.gap,.side{break-inside:avoid}body{background:white;color:black}.cmp-frame{print-color-adjust:exact}}
+
 </style>
+<script>
+(function(){var theme='light';try{theme=localStorage.getItem('skver-theme') || 'light';}catch(e){}document.documentElement.setAttribute('data-theme',theme==='dark'?'dark':'light');})();
+</script>
 <!--/head-->
 
-<div class="wrap">
+<a class="skip-link" href="#project">Перейти к содержанию</a>
+<nav class="site-nav" aria-label="Разделы справки">
+  <div class="nav-inner">
+    <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">↟</span> Сквер Поливановой</a>
+    <div class="nav-links">
+      <a href="#project">Проект</a><a href="#green">Сквер</a><a href="#debates">Обсуждения</a><a href="#timeline">Хронология</a><a href="#funding">Деньги</a><a href="#residents">Жители</a><a href="#sources">Источники</a>
+    </div>
+    <button class="theme-toggle" type="button" aria-label="Тёмная тема" aria-pressed="false">◐</button>
+  </div>
+</nav>
+
+<main class="wrap" id="top">
 
 <header class="head">
   <div class="head-rule"></div>
@@ -310,8 +387,20 @@ figure{margin:0}
     <span class="eyebrow">Очаково-Матвеевское · ЗАО Москвы</span>
     <span class="eyebrow">Проверено 13 сентября 2026</span>
   </div>
-  <h1>Сквер и тоннель<span class="h1-sub">Улица Марии Поливановой, пересечение под Киевским направлением МЖД</span></h1>
-  <p class="lede">На месте сквера площадью <strong>0,78 га</strong> постановлением Правительства Москвы предусмотрено автомобильное тоннельное пересечение под железной дорогой: <strong>590 м с рампами, четыре полосы, котлован до 14,4 м</strong>. Договор со строителем заключён, реализация заявлена на 2029 год. Здесь сведены документы, позиция жителей и позиция города — <strong>раздельно и с указанием, чем подтверждён каждый факт</strong>.</p>
+  <div class="hero">
+    <div class="hero-copy">
+      <p class="hero-kicker">История одного городского места</p>
+  <h1>Сквер<br>и тоннель<span class="h1-sub">Улица Марии Поливановой, пересечение под Киевским направлением МЖД</span></h1>
+  <p class="lede">На месте сквера площадью <strong>0,78 га</strong> предусмотрен четырёхполосный тоннель под железной дорогой. Жители выступают за сохранение зелёной территории. Здесь — история вопроса, документы и то, что известно о проекте.</p>
+
+      <div class="hero-actions"><a class="primary" href="#timeline">История сквера <span aria-hidden="true">↓</span></a><a href="#sources">Посмотреть документы <span aria-hidden="true">↗</span></a></div>
+    </div>
+    <figure class="hero-photo">
+      <img src="img/skver-may-2024.jpg" alt="Деревья и детская площадка в сквере Марии Поливановой на закате" width="1400" height="1050" fetchpriority="high">
+      <span class="hero-photo-label">Очаково-Матвеевское · Москва</span>
+      <figcaption><strong>Место, которое важно жителям.</strong>Сквер на улице Марии Поливановой.<br>Фотография жителей · май 2024</figcaption>
+    </figure>
+  </div>
 
   <div class="bounds">
     <h3>Граница актуальности</h3>
@@ -340,8 +429,8 @@ figure{margin:0}
 </header>
 
 <!-- 1 ——————————————————————————————— -->
-<section>
-  <div class="sec-head"><span class="n">01</span><h2>Что именно построят</h2></div>
+<section id="project">
+  <div class="sec-head"><span class="n">01</span><h2>Что предусмотрено проектом</h2></div>
 
   <figure class="cmp">
     <div class="cmp-frame" id="cmpFrame">
@@ -355,7 +444,7 @@ figure{margin:0}
       <span class="cmp-badge r">Визуализация нейросети</span>
     </div>
     <figcaption class="figcap">
-      <b>Слева — то, что есть: аэрофотосъёмка сквера 10 декабря 2021 года.</b> Справа — визуализация,
+      <b>Слева — сквер на аэрофотосъёмке 10 декабря 2021 года.</b> Справа — визуализация,
       сделанная нейросетью по этому же кадру в сентябре 2026 года. <b>Это не проектное решение
       и не официальная иллюстрация</b>: проектная документация с положительным заключением экспертизы
       не опубликована, поэтому как именно будет выглядеть сооружение, по имеющимся материалам
@@ -551,7 +640,7 @@ figure{margin:0}
 </section>
 
 <!-- 2 ——————————————————————————————— -->
-<section>
+<section id="green">
   <div class="sec-head"><span class="n">02</span><h2>Баланс зелени</h2></div>
   <p class="prose">Тем же постановлением сквер исключён из состава природных и озеленённых территорий, а севернее железной дороги образованы два других объекта природного комплекса. Это <b>территориальная компенсация баланса</b> — она сама по себе не подтверждает ни посадку деревьев, ни сохранение доступного жителям сквера на прежнем месте.</p>
 
@@ -659,7 +748,7 @@ figure{margin:0}
 </section>
 
 <!-- 3 ——————————————————————————————— -->
-<section>
+<section id="purpose">
   <div class="sec-head"><span class="n">03</span><h2>Ради чего дорога</h2></div>
   <p class="prose">Тоннель — часть дорожного проекта, связанного с реорганизацией промзоны «Южное Очаково». Проект планировки территории на 53,76 га предусматривает:</p>
 
@@ -693,7 +782,7 @@ figure{margin:0}
 </section>
 
 <!-- 4 ——————————————————————————————— -->
-<section>
+<section id="debates">
   <div class="sec-head"><span class="n">04</span><h2>Общественные обсуждения 2021 года</h2></div>
   <p class="prose">Оповещения опубликованы 30.04.2021, экспозиция и приём замечаний проходили онлайн с 12 по 25 мая. По ППТ и по изменениям правил землепользования — <b>две разные процедуры</b> с отдельными заключениями от 11.06.2021.</p>
 
@@ -744,7 +833,7 @@ figure{margin:0}
       <h3 style="margin-bottom:8px">Уточнение подсчёта по ПЗЗ</h3>
       <p class="note">В первоисточнике — <span class="num">272</span> позиции «поддерживаю» без замечаний, <span class="num">19</span> «поддерживаю с замечаниями», <span class="num">52</span> «не поддерживаю». Ранее в обращениях приводились 289 / 54 и 218 — они не совпадают с подсчётом строк заключения.</p>
       <p class="note">Позицию участника и рекомендацию комиссии нельзя считать одним показателем: строки 67 и 71 — поддержка с замечаниями, хотя комиссия замечания учитывать не рекомендует.</p>
-      <p class="note-mono">Проверено построчно: все 343 строки заключения № 427/21.</p>
+      <p class="note-mono">Проверено построчно: все 343 строки заключения № 427/21. <a href="docs/pzz-427-21-count.csv" download>Скачать таблицу подсчёта (CSV)</a>.</p>
     </div>
   </div>
 
@@ -799,7 +888,7 @@ figure{margin:0}
 </section>
 
 <!-- 5 ——————————————————————————————— -->
-<section>
+<section id="timeline">
   <div class="sec-head"><span class="n">05</span><h2>Хронология</h2></div>
   <p class="prose" style="margin-bottom:20px">От ремонта сквера до заключённого договора — с указанием, чем подтверждено каждое событие. Фильтр переключает состав ленты.</p>
 
@@ -824,15 +913,20 @@ figure{margin:0}
     <div class="tl-era" data-era>2021 — 2022 · кампания жителей</div>
     <div class="ev" data-k="doc"><span class="d">03–09.12.2021</span><span class="t">Газета «На Западе Москвы» № 47 (684): статья и. о. главы управы «Тоннель решит проблему». Сквер в ней не упомянут<span class="tag doc">Документ</span></span></div>
     <div class="ev" data-k="res"><span class="d">04–05.12.2021</span><span class="t">Телеграм-чат защиты сквера, листовки, начало сбора подписей<span class="tag res">Со слов жителей</span></span></div>
-    <div class="ev" data-k="doc"><span class="d">10–11.12.2021</span><span class="t">Публикация «Москвич Mag»; депутат ГД Г. П. Хованская направляет запрос мэру<span class="tag doc">Документ</span></span></div>
-    <div class="ev" data-k="res"><span class="d">15.12.2021</span><span class="t">Управа просит МКА изменить ППТ и рассмотреть тоннель к 1-му Очаковскому переулку; копии письма нет<span class="tag res">Со слов жителей</span></span></div>
+    <div class="ev" data-k="res"><span class="d">06.12.2021</span><span class="t">Обращения депутату МГД Т. Т. Батышевой; копий обращений нет<span class="tag res">Со слов жителей</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">10.12.2021</span><span class="t">Публикация «Москвич Mag» о защите сквера<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="res"><span class="d">10.12.2021</span><span class="t">Дата отправки запроса Г. П. Хованской мэру по сведениям жителей; публикация следующего дня подтверждает сам факт запроса<span class="tag res">Со слов жителей</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">11.12.2021</span><span class="t"><a href="https://spravedlivo.ru/11703810">Опубликовано сообщение о депутатском запросе Г. П. Хованской</a>; дата публикации отличается от сообщённой даты отправки<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="res"><span class="d">11.12.2021</span><span class="t">Сбор подписей под требованиями отменить решения по тоннелю, вернуть ПК № 113, присвоить скверу имя М. С. Поливановой и включить его в реестр ОКН. Как этот этап соотносится с началом сбора 05.12, не установлено<span class="tag res">Со слов жителей</span></span></div>
+    <div class="ev" data-k="res"><span class="d">15.12.2021</span><span class="t">Управа просит МКА изменить ППТ и рассмотреть тоннель к 1-му Очаковскому переулку с развитием проезда № 1523 в полный профиль и длину; копии письма нет<span class="tag res">Со слов жителей</span></span></div>
     <div class="ev" data-k="doc"><span class="d">24.12.2021</span><span class="t">Обращение жителей в районный Совет ветеранов<span class="tag doc">Документ</span></span></div>
-    <div class="ev" data-k="res"><span class="d">03.03.2022</span><span class="t">Передача обращений в приёмные со сканами 2900 подписей<span class="tag res">Со слов жителей</span></span></div>
+    <div class="ev" data-k="res"><span class="d">03.03.2022</span><span class="t">Передача обращений в приёмные Президента РФ, председателя «Единой России» и «Справедливой России» со сканами 2900 подписей<span class="tag res">Со слов жителей</span></span></div>
     <div class="ev" data-k="res"><span class="d">к маю 2022</span><span class="t">Свыше 3000 подписей; оригиналы подписных листов в комплекте отсутствуют<span class="tag res">Со слов жителей</span></span></div>
     <div class="ev" data-k="res"><span class="d">2022</span><span class="t">Комиссия по наименованиям откладывает вопрос об имени сквера до транспортного анализа; протокола нет<span class="tag res">Со слов жителей</span></span></div>
     <div class="ev" data-k="res"><span class="d">09.07.2022 — 29.06.2024</span><span class="t">Благоустройство сквера в составе работ возле МЦД «Очаково»; приёмочного акта нет<span class="tag res">Со слов жителей</span></span></div>
 
     <div class="tl-era" data-era>2024 — 2025 · встречи и ответы</div>
+    <div class="ev" data-k="res"><span class="d">17.04.2024</span><span class="t">Ответ МКА на обращение от 19.03.2024 № 55712307: в АИП 2023–2026 предусмотрены лимиты, сроки проектирования и строительства — <b>2026–2030</b>. Текст передан жителями; скана и исходящего номера ответа нет<span class="tag res">Со слов жителей</span></span></div>
     <div class="ev" data-k="doc"><span class="d">08.10.2024</span><span class="t">ПП № 2251-ПП об АИП 2024–2027 — основание, указанное в головном ТЗ<span class="tag doc">Документ</span></span></div>
     <div class="ev" data-k="doc"><span class="d">26.12.2024 · 12.03.2025</span><span class="t">Две встречи инициативной группы с Москомархитектурой, вторая — с Институтом Генплана<span class="tag doc">Документ</span></span></div>
     <div class="ev" data-k="doc"><span class="d">22.05.2025</span><span class="t">Ответ Института Генплана: створ из Генплана, альтернатива через 1-й Очаковский отвергнута<span class="tag doc">Документ</span></span></div>
@@ -841,6 +935,7 @@ figure{margin:0}
 
     <div class="tl-era" data-era>2025 — 2026 · договор и стройка</div>
     <div class="ev" data-k="doc"><span class="d">23.10.2025</span><span class="t">ДМИС объявляет конкурс COM23102500127, начальная цена 11 063 595 420,89 ₽<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">28.10.2025</span><span class="t">Новые редакции извещения, конкурсной документации, проекта договора и календарного графика головной закупки<span class="tag doc">Документ</span></span></div>
     <div class="ev key-ev" data-k="doc"><span class="d">06.11.2025</span><span class="t">Комиссия решает заключить договор с единственным участником — АО «МСУ-1», без снижения цены<span class="tag doc">Документ</span></span></div>
     <div class="ev" data-k="doc"><span class="d">12.12.2025</span><span class="t">Ответ МКА на запрос депутата ГД С. П. Обухова: компенсация 3,74 га «для соблюдения баланса»<span class="tag doc">Документ</span></span></div>
     <div class="ev key-ev" data-k="doc"><span class="d">16.12.2025</span><span class="t">ДСТИ: контракт с МСУ-1 заключён, реализация запланирована на 2029 год, «на месте сквера запланировано размещение тоннельного пересечения»<span class="tag doc">Документ</span></span></div>
@@ -853,17 +948,24 @@ figure{margin:0}
     <div class="tl-era" data-era>Плановые сроки — не состоявшиеся события</div>
     <div class="ev fut" data-k="fut"><span class="d">01.10.2026 — 28.02.2027</span><span class="t">Изыскания, проектирование, экспертиза и согласования по выносу канализации<span class="tag unk">План</span></span></div>
     <div class="ev fut" data-k="fut"><span class="d">01.02 — 15.06.2027</span><span class="t">Подготовительные и основные СМР по канализации<span class="tag unk">План</span></span></div>
+    <div class="ev" data-k="fut"><span class="d">16.06 — 30.09.2027</span><span class="t">Завершающие работы и передача канализационного объекта по календарному плану закупки<span class="tag unk">План</span></span></div>
     <div class="ev fut" data-k="fut"><span class="d">30.11.2027</span><span class="t">Срок исполнения по проекту договора Мосводоканала<span class="tag unk">План</span></span></div>
     <div class="ev fut" data-k="fut"><span class="d">сент.–окт. 2028</span><span class="t">Расчётный предел 1040 дней по документации головной закупки<span class="tag unk">Расчёт</span></span></div>
     <div class="ev fut" data-k="fut"><span class="d">2029</span><span class="t">Реализация головного объекта по письму ДСТИ; точной даты ввода нет<span class="tag unk">План</span></span></div>
     <div class="ev fut" data-k="fut"><span class="d">не установлено</span><span class="t">Фактическое начало строительства тоннеля и дата вырубки сквера<span class="tag unk">Не подтверждено</span></span></div>
   </div>
 
-  <p class="note prose wide" style="margin-top:18px">Подписи жителей: более 500 человек в группе (декабрь 2021), 1000+ в обращении Президенту, 2900 сканов в марте 2022, 3000+ к маю 2022, более 3100 в поздних текстах. Все цифры — <b>со слов инициативной группы</b>; оригиналы подписных листов в доступном комплекте отсутствуют.</p>
+  <p class="note prose wide" style="margin-top:18px">По сведениям жителей, в обращении Президенту указано 1000+ подписей, в марте 2022 переданы сканы 2900 подписей, к маю собрано 3000+, в поздних текстах — более 3100. Это последовательные этапы сбора, их <b>нельзя складывать</b>; оригиналы подписных листов не приложены. Упомянутые в публикации декабря 2021 года 500+ участников группы — численность группы, а не отдельный подсчёт подписей.</p>
 </section>
 
+<div class="bounds prose wide" style="margin-bottom:32px">
+  <h3>Как менялись сведения о сроках</h3>
+  <p>Ранние ответы об отсутствии финансирования известны из недатированного пересказа жителей. В переданном ими ответе МКА от 17.04.2024 уже названы лимиты и период <b>2026–2030</b>. В письме ДСТИ от 16.12.2025 реализация запланирована на <b>2029 год</b>; опубликованный закупочный график даёт расчётный предел в сентябре–октябре 2028 года.</p>
+  <p class="note">Это разные источники и показатели. Они не подтверждают автоматически перенос подписанного договора или годовую просрочку. Для сопоставления нужен действующий график и объяснение заказчика.</p>
+</div>
+
 <!-- 6 ——————————————————————————————— -->
-<section>
+<section id="funding">
   <div class="sec-head"><span class="n">06</span><h2>Деньги</h2></div>
   <p class="prose">Предельный объём в Адресной инвестиционной программе — <b>12 600 млн ₽</b> — сохраняется во всех трёх сохранённых редакциях. Меняется распределение по годам: в июньской редакции 2026 года основной объём уходит на 2028 год.</p>
 
@@ -914,7 +1016,7 @@ figure{margin:0}
 </section>
 
 <!-- 7 ——————————————————————————————— -->
-<section>
+<section id="residents">
   <div class="sec-head"><span class="n">07</span><h2>Позиция жителей</h2></div>
   <p class="prose">Аргументы и требования инициативной группы. Оценки нужности тоннеля и качества ответов органов <b>не выдаются</b> за независимое транспортное или правовое заключение.</p>
 
@@ -965,7 +1067,7 @@ figure{margin:0}
 </section>
 
 <!-- 8 ——————————————————————————————— -->
-<section>
+<section id="unknowns">
   <div class="sec-head"><span class="n">08</span><h2>Границы знания</h2></div>
   <p class="prose" style="margin-bottom:22px">Что по имеющимся материалам установить нельзя — и потому не утверждается ни в одну, ни в другую сторону.</p>
 
@@ -988,7 +1090,7 @@ figure{margin:0}
     </div>
     <div class="gap">
       <h3>Кампания 2021–2024</h3>
-      <p>Часть дат, 2900 и 3000+ подписей, письмо управы, решение комиссии по наименованиям и благоустройство известны из дополнения жителей и не заменяют отсутствующие оригиналы.</p>
+      <p>Часть дат, 2900 и 3000+ подписей, письмо управы, решение комиссии по наименованиям и благоустройство известны из дополнения жителей. Ответ МКА от 17.04.2024 передан текстом, без скана; эти сведения не заменяют отсутствующие оригиналы.</p>
     </div>
     <div class="gap">
       <h3>Смежные решения</h3>
@@ -1012,7 +1114,7 @@ figure{margin:0}
 </section>
 
 <!-- 9 ——————————————————————————————— -->
-<section>
+<section id="sources">
   <div class="sec-head"><span class="n">09</span><h2>Источники</h2></div>
   <div class="srcs">
     <div>
@@ -1020,13 +1122,13 @@ figure{margin:0}
       <ul>
         <li><a href="https://docs.cntd.ru/document/608998911">Постановление № 1587-ПП от 07.10.2021</a> — карточка документа; приложение 1 на 82 листах, границы ПК № 113а и 113б</li>
         <li><a href="https://ag.mos.ru/debates/1174">Обсуждение ППТ № 1174</a> и <a href="https://ag.mos.ru/debates/1175">обсуждение ПЗЗ № 1175</a> — разные процедуры</li>
-        <li>Заключения № 428/21 и № 427/21 от 11.06.2021; построчный подсчёт 343 позиций ПЗЗ — <code>refs/ППТ_1587-ПП/</code></li>
+        <li><a href="docs/ppt-428-21.pdf">Заключение № 428/21 по ППТ (PDF)</a> и <a href="docs/pzz-427-21.pdf">№ 427/21 по ПЗЗ (PDF)</a> от 11.06.2021; <a href="docs/pzz-427-21-count.csv" download>подсчёт 343 позиций ПЗЗ (CSV)</a></li>
       </ul>
       <h3 style="margin-top:18px">Публикации</h3>
       <ul>
         <li><a href="https://zao.mos.ru/upload_local/iblock/4ce/4ce9101a71ed0946d1e2459647bfa4d7/aifnzm_47_complete_optimize.pdf">«На Западе Москвы» № 47 (684), 03–09.12.2021</a> — статья «Тоннель решит проблему», полоса 6</li>
         <li><a href="https://moskvichmag.ru/gorod/zhiteli-ochakovo-matveevskogo-zashhishhayut-skver-na-meste-kotorogo-hotyat-postroit-dorogu-s-tonnelem/">«Москвич Mag», 10.12.2021</a> — раннее освещение конфликта</li>
-        <li><a href="https://spravedlivo.ru/11703810">Запрос депутата Г. П. Хованской мэру, 11.12.2021</a></li>
+        <li><a href="https://spravedlivo.ru/11703810">Публикация о запросе Г. П. Хованской мэру, 11.12.2021</a></li>
       </ul>
     </div>
     <div>
@@ -1048,17 +1150,44 @@ figure{margin:0}
   </div>
 
   <footer>
-    <p>Инфографика собрана по справке «История вопроса и хронология» инициативной группы жителей района Очаково-Матвеевское, проверенной и дополненной 13 сентября 2026 года. Документ сопоставлен с постановлением и приложениями, материалами двух закупок, тремя редакциями АИП, выгрузками ОАТИ и ЕГРЗ, четырьмя официальными ответами и шестью текстами обращений. Ссылки вида <code>refs/…</code> указывают на локальные файлы комплекта, в сеть не опубликованные.</p>
+    <p>Инфографика собрана по справке «История вопроса и хронология» инициативной группы жителей района Очаково-Матвеевское, проверенной и дополненной 13 сентября 2026 года. Документ сопоставлен с постановлением и приложениями, материалами двух закупок, тремя редакциями АИП, выгрузками ОАТИ и ЕГРЗ, четырьмя официальными ответами и шестью текстами обращений. Заключения обсуждений и таблица подсчёта доступны для скачивания в разделе «Источники». Дополнение жителей от 13.09.2026 учтено отдельно: для событий без оригиналов сохранена соответствующая метка.</p>
     <p style="margin-bottom:0">При поступлении нового материала фиксируется дата самого события, реквизиты источника и дата проверки. Плановые даты заменяются фактическими только при появлении подтверждения.</p>
   </footer>
 </section>
 
-</div>
+<a class="back-top" href="#top">К началу справки <span aria-hidden="true">↑</span></a>
+</main>
 
 <div id="tip" role="status" aria-live="polite"></div>
 
 <script>
 (function(){
+  var themeButton = document.querySelector('.theme-toggle');
+  function updateThemeButton(){
+    var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    themeButton.setAttribute('aria-pressed', String(dark));
+    themeButton.setAttribute('aria-label', dark ? 'Включить светлую тему' : 'Включить тёмную тему');
+    themeButton.textContent = dark ? '☀' : '◐';
+  }
+  updateThemeButton();
+  themeButton.addEventListener('click', function(){
+    var theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem('skver-theme', theme); } catch(e) {}
+    updateThemeButton();
+  });
+  var navLinks = Array.from(document.querySelectorAll('.nav-links a'));
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) navLinks.forEach(function(link){
+          if (link.hash === '#' + entry.target.id) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
+        });
+      });
+    }, {rootMargin:'-15% 0px -65% 0px',threshold:0});
+    navLinks.forEach(function(link){var section=document.querySelector(link.hash);if(section) observer.observe(section);});
+  }
   // —— фильтр хронологии ——
   var tl = document.getElementById('tl');
   var btns = Array.prototype.slice.call(document.querySelectorAll('.filters button'));
@@ -1105,6 +1234,16 @@ figure{margin:0}
     var t = e.target.closest ? e.target.closest('[data-tip]') : null;
     if (t) show(t, e.clientX, e.clientY); else hide();
   });
+  document.querySelectorAll('[data-tip]').forEach(function(el){
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('aria-label', el.getAttribute('data-tip'));
+    el.addEventListener('focus', function(){
+      var r = el.getBoundingClientRect();
+      show(el, r.left + r.width / 2, r.top);
+    });
+    el.addEventListener('blur', hide);
+  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') hide(); });
   document.addEventListener('pointerleave', hide);
   document.addEventListener('scroll', hide, true);
 })();
