@@ -1,0 +1,916 @@
+<title>Сквер Поливановой и тоннель</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#E7E9E3; --surface:#F6F7F4; --surface-2:#EDEFE9;
+  --ink:#161B1A; --ink-2:#4A5351; --ink-3:#79817E;
+  --rule:#CBCEC6; --rule-strong:#A7ADA3;
+  --blue:#15599B; --rust:#B54A24; --green:#2C6B4C; --green-soft:#8FB39D; --ochre:#8A6A1F;
+  --seq-1:#123F6B; --seq-2:#1C6098; --seq-3:#5B92BE; --seq-4:#A9C6DC;
+  --hatch:rgba(181,74,36,.20);
+  --shadow:0 1px 2px rgba(22,27,26,.06);
+  --sans:"PT Sans Narrow","Arial Narrow",Arial,sans-serif;
+  --serif:"PT Serif",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#121617; --surface:#171B1C; --surface-2:#1E2324;
+    --ink:#E6E9E4; --ink-2:#A8B0AD; --ink-3:#79817E;
+    --rule:#2C3334; --rule-strong:#454C4B;
+    --blue:#4A90CC; --rust:#D4713F; --green:#5AA47D; --green-soft:#3E6B55; --ochre:#C4A052;
+    --seq-1:#1B4E7E; --seq-2:#2E76B0; --seq-3:#6AA3CE; --seq-4:#A5C6E0;
+    --hatch:rgba(212,113,63,.24);
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#121617; --surface:#171B1C; --surface-2:#1E2324;
+  --ink:#E6E9E4; --ink-2:#A8B0AD; --ink-3:#79817E;
+  --rule:#2C3334; --rule-strong:#454C4B;
+  --blue:#4A90CC; --rust:#D4713F; --green:#5AA47D; --green-soft:#3E6B55; --ochre:#C4A052;
+  --seq-1:#1B4E7E; --seq-2:#2E76B0; --seq-3:#6AA3CE; --seq-4:#A5C6E0;
+  --hatch:rgba(212,113,63,.24);
+  --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--serif); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px; margin:0 auto; padding-inline:20px; padding-block:0 64px}
+p{margin:0 0 .85em}
+a{color:var(--blue); text-decoration-thickness:1px; text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--blue); outline-offset:3px; border-radius:2px}
+h1,h2,h3{font-family:var(--sans); font-weight:700; text-wrap:balance; margin:0}
+h1{font-size:clamp(40px,7.2vw,74px); line-height:.98; letter-spacing:-.01em}
+h2{font-size:clamp(26px,3.6vw,38px); line-height:1.06}
+h3{font-size:19px; line-height:1.25; letter-spacing:.005em}
+table{border-collapse:collapse; width:100%; font-size:15px}
+.num{font-family:var(--mono); font-variant-numeric:tabular-nums}
+
+/* ——— эйрбров и метки ——— */
+.eyebrow{
+  font-family:var(--mono); font-size:11.5px; font-weight:500;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3);
+}
+.tag{
+  display:inline-flex; align-items:center; gap:5px; flex:0 0 auto;
+  font-family:var(--mono); font-size:10.5px; font-weight:500; letter-spacing:.07em;
+  text-transform:uppercase; white-space:nowrap; padding:1px 6px 1px 5px;
+  border:1px solid var(--rule-strong); border-radius:2px; color:var(--ink-2);
+}
+.tag::before{content:""; width:6px; height:6px; border-radius:50%; flex:0 0 auto}
+.tag.doc{color:var(--blue); border-color:color-mix(in srgb,var(--blue) 45%,transparent)}
+.tag.doc::before{background:var(--blue)}
+.tag.res{color:var(--ochre); border-color:color-mix(in srgb,var(--ochre) 50%,transparent)}
+.tag.res::before{background:none; border:1.5px solid var(--ochre)}
+.tag.unk{color:var(--ink-3); border-style:dashed}
+.tag.unk::before{background:none; border:1.5px dotted var(--ink-3)}
+
+/* ——— шапка ——— */
+header.head{padding-block:clamp(40px,7vw,76px) 0}
+.head-rule{height:1px; background:var(--rule-strong); margin-bottom:18px}
+.head-meta{display:flex; flex-wrap:wrap; gap:8px 20px; justify-content:space-between; margin-bottom:22px}
+h1 .h1-sub{display:block; font-size:.44em; font-weight:400; color:var(--ink-2); letter-spacing:.01em; margin-top:.28em; line-height:1.15}
+.lede{font-size:20px; line-height:1.5; max-width:60ch; margin-top:26px; color:var(--ink-2)}
+.lede strong{color:var(--ink)}
+
+/* ——— карточка «граница актуальности» ——— */
+.bounds{
+  margin-top:30px; border:1px solid var(--rule-strong); border-left:3px solid var(--ochre);
+  background:var(--surface); padding:16px 18px; font-size:15px; line-height:1.5;
+}
+.bounds h3{font-size:14px; letter-spacing:.1em; text-transform:uppercase; font-family:var(--mono); font-weight:600; color:var(--ochre); margin-bottom:8px}
+.bounds ul{margin:0; padding-left:18px; color:var(--ink-2)}
+.bounds li{margin-bottom:3px}
+
+/* ——— легенда статусов ——— */
+.legend{
+  margin-top:34px; display:grid; gap:1px; background:var(--rule);
+  border:1px solid var(--rule); grid-template-columns:repeat(3,1fr);
+}
+.legend > div{background:var(--surface); padding:13px 15px}
+.legend p{margin:7px 0 0; font-size:14px; line-height:1.42; color:var(--ink-2)}
+
+/* ——— секции ——— */
+section{padding-block:clamp(44px,6vw,72px) 0}
+.sec-head{display:flex; align-items:baseline; gap:14px; border-bottom:1px solid var(--rule-strong); padding-bottom:10px; margin-bottom:26px; flex-wrap:wrap}
+.sec-head .n{font-family:var(--mono); font-size:12px; color:var(--ink-3); letter-spacing:.08em}
+.prose{max-width:66ch}
+.prose.wide{max-width:76ch}
+.note{font-size:14.5px; line-height:1.5; color:var(--ink-2)}
+.note-mono{font-family:var(--mono); font-size:12.5px; line-height:1.5; color:var(--ink-3)}
+
+/* ——— ключевые числа ——— */
+.figs{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); margin-bottom:30px}
+.fig{background:var(--surface); padding:16px 16px 14px; display:flex; flex-direction:column; gap:6px}
+.fig .v{font-family:var(--sans); font-weight:700; font-size:clamp(28px,4vw,40px); line-height:1; letter-spacing:-.01em; font-variant-numeric:tabular-nums}
+.fig .v small{font-size:.45em; font-weight:400; color:var(--ink-2); letter-spacing:.02em; margin-left:.25em}
+.fig .k{font-size:14px; line-height:1.35; color:var(--ink-2)}
+.fig .tag{align-self:flex-start; margin-top:2px}
+
+/* ——— лист-чертёж ——— */
+.sheet{
+  border:1px solid var(--rule-strong); background:var(--surface);
+  padding:20px 20px 0; margin-block:8px 0; box-shadow:var(--shadow);
+}
+.sheet-body{overflow-x:auto}
+.sheet svg{display:block; max-width:100%; height:auto; min-width:520px}
+.stamp{
+  display:flex; flex-wrap:wrap; gap:6px 22px; justify-content:space-between; align-items:baseline;
+  border-top:1px solid var(--rule); margin-top:14px; padding:9px 0;
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.05em; color:var(--ink-3);
+}
+.stamp b{color:var(--ink-2); font-weight:500; text-transform:uppercase; letter-spacing:.1em}
+svg text{font-family:var(--mono); font-variant-numeric:tabular-nums}
+.sv-lbl{font-size:11px; fill:var(--ink-2)}
+.sv-dim{font-size:10.5px; fill:var(--ink-3)}
+.sv-key{font-size:12px; fill:var(--ink); font-weight:500}
+
+.two{display:grid; grid-template-columns:1.55fr 1fr; gap:22px; align-items:start}
+.spec{border-top:1px solid var(--rule-strong)}
+.spec div{display:flex; justify-content:space-between; gap:14px; padding:7px 0; border-bottom:1px solid var(--rule); font-size:14.5px}
+.spec dt{color:var(--ink-2)}
+.spec dd{margin:0; font-family:var(--mono); font-size:13.5px; text-align:right; font-variant-numeric:tabular-nums}
+
+/* ——— диаграммы на CSS ——— */
+.chart{margin-top:6px}
+.bar-row{display:grid; grid-template-columns:minmax(120px,190px) 1fr; gap:14px; align-items:center; padding:7px 0}
+.bar-row .lbl{font-size:14px; line-height:1.25; color:var(--ink-2)}
+.bar-row .lbl b{display:block; color:var(--ink); font-family:var(--sans); font-size:16px; font-weight:700; letter-spacing:.01em}
+.bar{display:flex; gap:2px; align-items:center; height:26px}
+.seg{height:100%; display:flex; align-items:center; justify-content:flex-end; padding-right:6px; min-width:2px; cursor:default}
+.seg span{font-family:var(--mono); font-size:11.5px; color:#fff; font-variant-numeric:tabular-nums}
+.seg.out{position:relative; overflow:visible}
+.seg.out span{position:absolute; left:calc(100% + 6px); color:var(--ink-2)}
+.key{display:flex; flex-wrap:wrap; gap:6px 18px; margin-top:14px; font-size:13.5px; color:var(--ink-2)}
+.key i{display:inline-block; width:11px; height:11px; margin-right:6px; vertical-align:-1px}
+
+.aip{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule)}
+.aip > div{background:var(--surface); padding:15px}
+.aip h3{font-size:15px; font-family:var(--mono); font-weight:600; letter-spacing:.03em}
+.aip .cap{font-size:12.5px; color:var(--ink-3); font-family:var(--mono); margin-bottom:12px}
+.yr{display:grid; grid-template-columns:34px 1fr 62px; gap:8px; align-items:center; padding:3px 0; font-size:13px}
+.yr .y{font-family:var(--mono); color:var(--ink-3); font-size:12px}
+.yr .track{display:block; height:14px; background:var(--surface-2); position:relative}
+.yr .fill{display:block; height:100%; background:var(--blue)}
+.yr .amt{font-family:var(--mono); font-size:12px; text-align:right; font-variant-numeric:tabular-nums; color:var(--ink-2)}
+
+/* ——— хронология ——— */
+.filters{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px}
+.filters button{
+  font-family:var(--mono); font-size:12px; letter-spacing:.05em; text-transform:uppercase;
+  padding:5px 11px; border:1px solid var(--rule-strong); background:var(--surface);
+  color:var(--ink-2); cursor:pointer; border-radius:2px;
+}
+.filters button[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.tl{border-top:1px solid var(--rule-strong)}
+.tl-era{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink-3); padding:18px 0 6px; border-bottom:1px solid var(--rule);
+}
+.ev{display:grid; grid-template-columns:118px 1fr; gap:16px; padding:10px 0; border-bottom:1px solid var(--rule); align-items:start}
+.ev[hidden]{display:none}
+.ev .d{font-family:var(--mono); font-size:12.5px; color:var(--ink-2); line-height:1.45; font-variant-numeric:tabular-nums; padding-top:2px}
+.ev .t{font-size:15.5px; line-height:1.45}
+.ev .t .tag{margin-left:8px; vertical-align:1px}
+.ev.key-ev .t{font-family:var(--sans); font-size:20px; font-weight:700; line-height:1.2}
+.ev.key-ev .d{color:var(--rust); font-weight:500}
+.ev.fut .d{color:var(--ink-3)}
+.ev.fut .t{color:var(--ink-2)}
+
+/* ——— позиции сторон ——— */
+.sides{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+.side{border-top:2px solid var(--rule-strong); padding-top:14px}
+.side.a{border-top-color:var(--green)}
+.side.b{border-top-color:var(--blue)}
+.side h3{margin-bottom:4px}
+.side .who{font-family:var(--mono); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin-bottom:12px}
+.side ul{margin:0; padding-left:19px; font-size:15.5px; line-height:1.5}
+.side li{margin-bottom:9px}
+.side li::marker{color:var(--ink-3)}
+
+.reqs{counter-reset:r; display:grid; gap:1px; background:var(--rule); border:1px solid var(--rule)}
+.reqs li{background:var(--surface); padding:14px 16px 14px 52px; position:relative; font-size:15.5px; line-height:1.45; list-style:none}
+.reqs li::before{
+  counter-increment:r; content:counter(r); position:absolute; left:16px; top:13px;
+  font-family:var(--sans); font-weight:700; font-size:20px; color:var(--rust); line-height:1;
+}
+.reqs{margin:0; padding:0}
+
+.gaps{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule)}
+.gap{background:var(--surface); padding:15px 16px}
+.gap h3{font-size:16px; margin-bottom:6px}
+.gap p{font-size:14.5px; line-height:1.45; color:var(--ink-2); margin:0}
+
+.srcs{display:grid; grid-template-columns:repeat(2,1fr); gap:26px; font-size:14.5px; line-height:1.5}
+.srcs h3{font-size:14px; font-family:var(--mono); font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-bottom:9px}
+.srcs ul{margin:0; padding-left:18px}
+.srcs li{margin-bottom:7px; color:var(--ink-2)}
+.srcs code{font-family:var(--mono); font-size:12.5px; color:var(--ink-3); background:var(--surface-2); padding:1px 4px}
+
+footer{margin-top:52px; border-top:1px solid var(--rule-strong); padding-top:16px; font-size:14px; color:var(--ink-3); max-width:76ch}
+
+#tip{
+  position:fixed; z-index:20; pointer-events:none; opacity:0; transform:translateY(3px);
+  background:var(--ink); color:var(--paper); font-family:var(--mono); font-size:12px; line-height:1.45;
+  padding:6px 9px; border-radius:2px; max-width:260px; transition:opacity .12s ease;
+}
+#tip.on{opacity:1; transform:none}
+
+@media (prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important}}
+@media (max-width:860px){
+  .two,.sides,.aip,.legend,.srcs{grid-template-columns:1fr}
+  .figs{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .figs,.gaps{grid-template-columns:1fr}
+  .ev{grid-template-columns:1fr; gap:4px}
+  .bar-row{grid-template-columns:1fr; gap:5px}
+  .sheet{padding-inline:12px}
+}
+</style>
+<!--/head-->
+
+<div class="wrap">
+
+<header class="head">
+  <div class="head-rule"></div>
+  <div class="head-meta">
+    <span class="eyebrow">Очаково-Матвеевское · ЗАО Москвы</span>
+    <span class="eyebrow">Проверено 13 сентября 2026</span>
+  </div>
+  <h1>Сквер и тоннель<span class="h1-sub">Улица Марии Поливановой, пересечение под Киевским направлением МЖД</span></h1>
+  <p class="lede">На месте сквера площадью <strong>0,78 га</strong> постановлением Правительства Москвы предусмотрено автомобильное тоннельное пересечение под железной дорогой: <strong>590 м с рампами, четыре полосы, котлован до 14,4 м</strong>. Договор со строителем заключён, реализация заявлена на 2029 год. Здесь сведены документы, позиция жителей и позиция города — <strong>раздельно и с указанием, чем подтверждён каждый факт</strong>.</p>
+
+  <div class="bounds">
+    <h3>Граница актуальности</h3>
+    <ul>
+      <li>последняя сохранённая редакция АИП — <span class="num">16.06.2026</span>;</li>
+      <li>выгрузка ОАТИ — на <span class="num">09.09.2026</span>, выборка ЕГРЗ — от <span class="num">12.09.2026</span>;</li>
+      <li>последний официальный ответ о сроке стройки — от <span class="num">16.12.2025</span>.</li>
+    </ul>
+    <p class="note" style="margin:9px 0 0">Полную проверку карточек закупок и реестров 13.09.2026 завершить не удалось: ключевые страницы недоступны. Поэтому отсутствие новых договоров, разрешений или изменений проекта <b>не утверждается</b>.</p>
+  </div>
+
+  <div class="legend">
+    <div>
+      <span class="tag doc">Документ</span>
+      <p>Подтверждено первоисточником: постановление, техническое задание, протокол закупки, официальный ответ ведомства.</p>
+    </div>
+    <div>
+      <span class="tag res">Со слов жителей</span>
+      <p>Сообщено инициативной группой. Оригиналов — подписных листов, писем, протоколов — в комплекте нет.</p>
+    </div>
+    <div>
+      <span class="tag unk">Не подтверждено</span>
+      <p>Арифметический ориентир, плановая дата или сведение, которое по имеющимся материалам проверить нельзя.</p>
+    </div>
+  </div>
+</header>
+
+<!-- 1 ——————————————————————————————— -->
+<section>
+  <div class="sec-head"><span class="n">01</span><h2>Что именно построят</h2></div>
+
+  <div class="figs">
+    <div class="fig">
+      <span class="v">590<small>м</small></span>
+      <span class="k">длина тоннеля с рампами; перекрытая часть — 227 м</span>
+      <span class="tag doc">ТЗ закупки</span>
+    </div>
+    <div class="fig">
+      <span class="v">24<small>м</small></span>
+      <span class="k">ширина сооружения, две полосы в каждом направлении</span>
+      <span class="tag doc">ТЗ закупки</span>
+    </div>
+    <div class="fig">
+      <span class="v">11,06<small>млрд ₽</small></span>
+      <span class="k">цена договора с АО «МСУ-1» по решению комиссии</span>
+      <span class="tag doc">Протокол 06.11.2025</span>
+    </div>
+    <div class="fig">
+      <span class="v">2029</span>
+      <span class="k">год реализации объекта по письму ДСТИ</span>
+      <span class="tag doc">Ответ 16.12.2025</span>
+    </div>
+  </div>
+
+  <div class="sheet">
+    <div class="sheet-body">
+      <svg viewBox="0 96 1000 204" role="img" aria-label="Продольный разрез по оси тоннеля: 590 метров с рампами, перекрытая часть 227 метров, котлован глубиной до 14,4 метра под путями Киевского направления">
+        <!-- небо/грунт -->
+        <rect x="0" y="0" width="1000" height="300" fill="none"/>
+        <!-- поверхность земли -->
+        <line x1="40" y1="150" x2="960" y2="150" stroke="var(--rule-strong)" stroke-width="1.5"/>
+        <!-- штриховка грунта -->
+        <g stroke="var(--rule)" stroke-width="1">
+          <line x1="40" y1="157" x2="960" y2="157"/>
+          <line x1="40" y1="163" x2="960" y2="163" stroke-dasharray="3 5"/>
+        </g>
+
+        <!-- сквер (юг, слева) -->
+        <g>
+          <rect x="40" y="136" width="80" height="14" fill="var(--green-soft)" opacity=".55"/>
+          <g fill="var(--green)">
+            <circle cx="52" cy="130" r="6"/><circle cx="68" cy="127" r="7.5"/><circle cx="85" cy="130" r="6"/>
+            <circle cx="101" cy="128" r="7"/><circle cx="115" cy="131" r="5.5"/>
+          </g>
+          <text class="sv-key" x="40" y="112" fill="var(--green)">Сквер, 0,78 га</text>
+          <text class="sv-lbl" x="132" y="136">южная сторона · ул. М. Поливановой</text>
+        </g>
+
+        <!-- железная дорога над перекрытой частью -->
+        <g>
+          <rect x="354" y="140" width="292" height="10" fill="var(--rule-strong)" opacity=".5"/>
+          <g stroke="var(--ink-2)" stroke-width="1.2">
+            <line x1="360" y1="140" x2="360" y2="150"/><line x1="378" y1="140" x2="378" y2="150"/>
+            <line x1="396" y1="140" x2="396" y2="150"/><line x1="414" y1="140" x2="414" y2="150"/>
+            <line x1="432" y1="140" x2="432" y2="150"/><line x1="450" y1="140" x2="450" y2="150"/>
+            <line x1="468" y1="140" x2="468" y2="150"/><line x1="486" y1="140" x2="486" y2="150"/>
+            <line x1="504" y1="140" x2="504" y2="150"/><line x1="522" y1="140" x2="522" y2="150"/>
+            <line x1="540" y1="140" x2="540" y2="150"/><line x1="558" y1="140" x2="558" y2="150"/>
+            <line x1="576" y1="140" x2="576" y2="150"/><line x1="594" y1="140" x2="594" y2="150"/>
+            <line x1="612" y1="140" x2="612" y2="150"/><line x1="630" y1="140" x2="630" y2="150"/>
+          </g>
+          <line x1="354" y1="142" x2="646" y2="142" stroke="var(--ink)" stroke-width="1.6"/>
+          <line x1="354" y1="148" x2="646" y2="148" stroke="var(--ink)" stroke-width="1.6"/>
+          <text class="sv-key" x="500" y="128" text-anchor="middle">Киевское направление МЖД</text>
+        </g>
+
+        <!-- профиль тоннеля: рампы + перекрытая часть, вертикаль = горизонтали -->
+        <path d="M120 150 L354 168.5 L646 168.5 L880 150" fill="none" stroke="var(--rust)" stroke-width="2"/>
+        <path d="M120 150 L354 168.5 L646 168.5 L880 150 L880 150 L646 150 L354 150 L120 150 Z" fill="var(--hatch)"/>
+        <!-- перекрытая часть -->
+        <rect x="354" y="150" width="292" height="18.5" fill="none" stroke="var(--rust)" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+        <!-- вынос глубины -->
+        <g>
+          <line x1="500" y1="168.5" x2="500" y2="205" stroke="var(--ink-3)" stroke-width="1"/>
+          <line x1="470" y1="205" x2="560" y2="205" stroke="var(--ink-3)" stroke-width="1"/>
+          <text class="sv-lbl" x="500" y="219" text-anchor="middle">котлован 13,9 и 14,4 м</text>
+          <text class="sv-dim" x="500" y="232" text-anchor="middle">свайное ограждение · 70 м закрытым способом</text>
+        </g>
+
+        <!-- горизонтальные размеры -->
+        <g stroke="var(--ink-3)" stroke-width="1">
+          <line x1="120" y1="256" x2="880" y2="256"/>
+          <line x1="120" y1="251" x2="120" y2="261"/><line x1="880" y1="251" x2="880" y2="261"/>
+          <line x1="354" y1="246" x2="354" y2="261" stroke-dasharray="3 3"/>
+          <line x1="646" y1="246" x2="646" y2="261" stroke-dasharray="3 3"/>
+        </g>
+        <text class="sv-lbl" x="500" y="249" text-anchor="middle">227 м перекрытой части</text>
+        <text class="sv-lbl" x="500" y="275" text-anchor="middle">590 м с рампами</text>
+        <text class="sv-dim" x="237" y="275" text-anchor="middle">рампа</text>
+        <text class="sv-dim" x="763" y="275" text-anchor="middle">рампа</text>
+
+        <!-- север -->
+        <text class="sv-key" x="960" y="112" text-anchor="end">Вокзальная ул.</text>
+        <text class="sv-lbl" x="960" y="126" text-anchor="end">северная сторона · промзона «Южное Очаково»</text>
+        <line x1="880" y1="136" x2="960" y2="136" stroke="var(--rule-strong)" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="stamp">
+      <span><b>Лист 1</b> · продольный разрез по оси тоннеля</span>
+      <span>горизонталь и вертикаль в одном масштабе</span>
+      <span>источник: ТЗ головной закупки, прил. 3</span>
+    </div>
+  </div>
+
+  <div class="two" style="margin-top:26px">
+    <div>
+      <div class="sheet" style="margin-top:0">
+        <div class="sheet-body">
+          <svg viewBox="0 0 460 260" role="img" aria-label="Поперечное сечение: ширина 24 метра, глубина котлована 14,4 метра, две полосы в каждом направлении">
+            <!-- поверхность -->
+            <line x1="20" y1="60" x2="440" y2="60" stroke="var(--rule-strong)" stroke-width="1.5"/>
+            <g stroke="var(--rule)" stroke-width="1">
+              <line x1="20" y1="66" x2="440" y2="66" stroke-dasharray="3 5"/>
+            </g>
+            <!-- котлован: 24 м = 240px (10 px/м), 14,4 м = 144px -->
+            <rect x="110" y="60" width="240" height="144" fill="var(--hatch)" stroke="var(--rust)" stroke-width="2"/>
+            <!-- свайное ограждение -->
+            <g stroke="var(--rust)" stroke-width="1.2" opacity=".8">
+              <line x1="106" y1="60" x2="106" y2="208"/><line x1="354" y1="60" x2="354" y2="208"/>
+            </g>
+            <!-- два очка -->
+            <rect x="126" y="120" width="96" height="68" fill="var(--surface)" stroke="var(--ink-2)" stroke-width="1.5"/>
+            <rect x="238" y="120" width="96" height="68" fill="var(--surface)" stroke="var(--ink-2)" stroke-width="1.5"/>
+            <g fill="var(--ink-3)">
+              <text class="sv-dim" x="174" y="160" text-anchor="middle">2 полосы</text>
+              <text class="sv-dim" x="286" y="160" text-anchor="middle">2 полосы</text>
+            </g>
+            <!-- стрелки направления -->
+            <path d="M160 176 l14 0 m0 0 l-4 -4 m4 4 l-4 4" stroke="var(--ink-2)" stroke-width="1.4" fill="none"/>
+            <path d="M300 176 l-14 0 m0 0 l4 -4 m-4 4 l4 4" stroke="var(--ink-2)" stroke-width="1.4" fill="none"/>
+            <!-- размеры -->
+            <g stroke="var(--ink-3)" stroke-width="1">
+              <line x1="110" y1="42" x2="350" y2="42"/>
+              <line x1="110" y1="37" x2="110" y2="47"/><line x1="350" y1="37" x2="350" y2="47"/>
+              <line x1="380" y1="60" x2="380" y2="204"/>
+              <line x1="375" y1="60" x2="385" y2="60"/><line x1="375" y1="204" x2="385" y2="204"/>
+            </g>
+            <text class="sv-lbl" x="230" y="34" text-anchor="middle">24 м</text>
+            <text class="sv-lbl" x="392" y="136" text-anchor="start">14,4 м</text>
+            <text class="sv-lbl" x="20" y="50">уровень земли</text>
+            <text class="sv-dim" x="20" y="230">двухочковый тоннель под путями;</text>
+            <text class="sv-dim" x="20" y="245">подпорные стены рамп — 726 м, средняя высота 6 м</text>
+          </svg>
+        </div>
+        <div class="stamp">
+          <span><b>Лист 2</b> · поперечное сечение</span>
+          <span>масштаб единый</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px">Состав работ по заданию</h3>
+      <dl class="spec">
+        <div><dt>Реконструкция Очаковского шоссе</dt><dd>300 м</dd></div>
+        <div><dt>Новый проезд № 3521</dt><dd>280 м</dd></div>
+        <div><dt>Новый проезд № 1656</dt><dd>350 м</dd></div>
+        <div><dt>Проезды «вдоль сквера»</dt><dd>40 м</dd></div>
+        <div><dt>Снос строений</dt><dd>6 шт. · 550 м забора</dd></div>
+        <div><dt>Обследование зданий в зоне влияния</dt><dd>10 шт.</dd></div>
+        <div><dt>Дендрология — площадь обследования</dt><dd>5 га</dd></div>
+        <div><dt>Благоустройство и озеленение</dt><dd>4 га</dd></div>
+        <div><dt>Срок по документации закупки</dt><dd>1040 дней</dd></div>
+        <div><dt>Лимит в АИП</dt><dd>12 600 млн ₽</dd></div>
+      </dl>
+      <p class="note" style="margin-top:12px">Это исходные требования закупки, <b>а не опубликованная окончательная проектная документация</b> с положительным заключением экспертизы. Площадь дендрологических работ — площадь обследования, а не установленная площадь вырубки. Компенсационное озеленение вынесено в отдельный проект другого заказчика (ДЖКХиБ) и в стройку не входит.</p>
+      <p class="note"><span class="tag doc">Документ</span> ДСТИ, 16.12.2025: «На месте сквера запланировано размещение тоннельного пересечения».</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2 ——————————————————————————————— -->
+<section>
+  <div class="sec-head"><span class="n">02</span><h2>Баланс зелени</h2></div>
+  <p class="prose">Тем же постановлением сквер исключён из состава природных и озеленённых территорий, а севернее железной дороги образованы два других объекта природного комплекса. Это <b>территориальная компенсация баланса</b> — она сама по себе не подтверждает ни посадку деревьев, ни сохранение доступного жителям сквера на прежнем месте.</p>
+
+  <div class="sheet">
+    <div class="sheet-body">
+      <svg viewBox="0 0 900 434" role="img" aria-label="Площади в масштабе: сквер 0,78 га исключён южнее железной дороги, участок № 24 под улично-дорожную сеть 2,01 га там же, компенсация 3,74 га образована севернее железной дороги">
+        <!-- север -->
+        <text class="sv-key" x="30" y="30" fill="var(--green)">Севернее МЖД — образовано</text>
+        <!-- 3,74 га → сторона 135 px (70·√3,74) -->
+        <rect x="30" y="44" width="135" height="135" fill="var(--green-soft)" opacity=".5" stroke="var(--green)" stroke-width="1.5"/>
+        <text class="sv-lbl" x="178" y="72" fill="var(--ink)">ПК № 113а — бульвар, 3,58 га</text>
+        <text class="sv-lbl" x="178" y="90">четыре участка</text>
+        <text class="sv-lbl" x="178" y="116" fill="var(--ink)">ПК № 113б — 0,16 га</text>
+        <text class="sv-lbl" x="178" y="134">территория возле образовательной организации</text>
+        <text class="sv-key" x="178" y="164" fill="var(--green)">всего 3,74 га</text>
+
+        <!-- железная дорога -->
+        <g>
+          <rect x="0" y="196" width="900" height="16" fill="var(--rule-strong)" opacity=".35"/>
+          <line x1="0" y1="199" x2="900" y2="199" stroke="var(--ink-2)" stroke-width="1.4"/>
+          <line x1="0" y1="209" x2="900" y2="209" stroke="var(--ink-2)" stroke-width="1.4"/>
+          <text class="sv-dim" x="900" y="190" text-anchor="end">Киевское направление МЖД</text>
+        </g>
+
+        <!-- юг -->
+        <text class="sv-key" x="30" y="248" fill="var(--rust)">Южнее МЖД — исключено и отведено</text>
+        <!-- 0,78 га → 62 px -->
+        <rect x="30" y="262" width="62" height="62" fill="var(--green-soft)" opacity=".45" stroke="var(--green)" stroke-width="1.5" stroke-dasharray="5 3"/>
+        <line x1="30" y1="324" x2="92" y2="262" stroke="var(--rust)" stroke-width="1.5"/>
+        <line x1="30" y1="262" x2="92" y2="324" stroke="var(--rust)" stroke-width="1.5"/>
+        <text class="sv-lbl" x="30" y="344" fill="var(--ink)">Сквер, ПК № 113 — 0,78 га</text>
+        <text class="sv-dim" x="30" y="360">исключён из состава природных</text>
+        <text class="sv-dim" x="30" y="375">и озеленённых территорий</text>
+
+        <!-- 2,01 га → 99 px -->
+        <rect x="300" y="262" width="99" height="99" fill="var(--hatch)" stroke="var(--rust)" stroke-width="1.5"/>
+        <g stroke="var(--rust)" stroke-width=".8" opacity=".55">
+          <line x1="300" y1="361" x2="399" y2="262"/><line x1="320" y1="361" x2="399" y2="282"/>
+          <line x1="340" y1="361" x2="399" y2="302"/><line x1="360" y1="361" x2="399" y2="322"/>
+          <line x1="300" y1="341" x2="379" y2="262"/><line x1="300" y1="321" x2="359" y2="262"/>
+          <line x1="300" y1="301" x2="339" y2="262"/><line x1="300" y1="281" x2="319" y2="262"/>
+        </g>
+        <text class="sv-lbl" x="300" y="381" fill="var(--ink)">Участок № 24 — 2,01 га</text>
+        <text class="sv-dim" x="300" y="397">отведён под улично-дорожную сеть,</text>
+        <text class="sv-dim" x="300" y="412">сквер попадает в него</text>
+
+        <!-- масштабная плашка -->
+        <g transform="translate(700,262)">
+          <rect x="0" y="0" width="70" height="70" fill="none" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="3 3"/>
+          <text class="sv-dim" x="35" y="40" text-anchor="middle">1 га</text>
+          <text class="sv-dim" x="0" y="90">площади показаны в масштабе,</text>
+          <text class="sv-dim" x="0" y="105">форма условная</text>
+        </g>
+      </svg>
+    </div>
+    <div class="stamp">
+      <span><b>Лист 3</b> · площади в масштабе</span>
+      <span>ПП № 1587-ПП, пп. 2–4</span>
+      <span>форма участков условная</span>
+    </div>
+  </div>
+
+  <p class="note prose wide" style="margin-top:16px">Площадь участка № 24 <b>не равна</b> площади сквера, площади котлована или площади сплошной вырубки. Окончательный объём удаления деревьев можно установить только по дендроплану и перечётной ведомости — их в комплекте нет. <span class="tag unk">Не подтверждено</span></p>
+</section>
+
+<!-- 3 ——————————————————————————————— -->
+<section>
+  <div class="sec-head"><span class="n">03</span><h2>Ради чего дорога</h2></div>
+  <p class="prose">Тоннель — часть дорожного проекта, связанного с реорганизацией промзоны «Южное Очаково». Проект планировки территории на 53,76 га предусматривает:</p>
+
+  <div class="chart" style="margin-top:20px">
+    <div class="bar" style="height:44px" role="img" aria-label="Структура новой застройки: жильё 617,5, офисы 233,18, встроенно-пристроенные помещения 42,04, социальные объекты 38,78 тысяч квадратных метров">
+      <div class="seg" style="background:var(--seq-1); width:66.29%" data-tip="Жильё — 617,50 тыс. м², 66,3 % площади"><span>617,50</span></div>
+      <div class="seg" style="background:var(--seq-2); width:25.03%" data-tip="Офисы — 233,18 тыс. м², 25,0 %"><span>233,18</span></div>
+      <div class="seg" style="background:var(--seq-3); width:4.51%" data-tip="Встроенно-пристроенные нежилые помещения — 42,04 тыс. м²"></div>
+      <div class="seg" style="background:var(--seq-4); width:4.16%" data-tip="Социальные объекты — 38,78 тыс. м²"></div>
+    </div>
+    <div class="key">
+      <span><i style="background:var(--seq-1)"></i>Жильё 617,50</span>
+      <span><i style="background:var(--seq-2)"></i>Офисы 233,18</span>
+      <span><i style="background:var(--seq-3)"></i>Встроенно-пристроенные 42,04</span>
+      <span><i style="background:var(--seq-4)"></i>Социальные объекты 38,78</span>
+      <span class="num" style="color:var(--ink)">Всего 931,50 тыс. м²</span>
+    </div>
+  </div>
+
+  <div class="two" style="margin-top:28px">
+    <div class="prose">
+      <p>Две школы на <span class="num">1100</span> и <span class="num">300</span> мест, два детских сада на <span class="num">350</span> и <span class="num">275</span> мест, с бассейнами. Тоннель на участках № 23, 24 отнесён ко <b>второй очереди</b> ППТ — но жильё предусмотрено в обеих: 400,68 тыс. м² в первой и 216,82 тыс. м² во второй. Формулировка «тоннель после всего жилья» неточна. <span class="tag doc">Приложение 1 к ПП № 1587-ПП</span></p>
+      <p>Разработчик ППТ — ГАУ «Институт Генплана Москвы», заказчик по письму института — <b>Москомархитектура</b>. В обращениях жители называют заказчиком АО «ПИК-Индустрия», но договор на разработку ППТ не приложен, поэтому как установленный факт это здесь не используется. <span class="tag unk">Не подтверждено</span></p>
+    </div>
+    <div class="bounds" style="margin-top:0; border-left-color:var(--blue)">
+      <h3 style="color:var(--blue)">Обоснование города</h3>
+      <p class="note" style="margin:0">Створ тоннеля взят из Перспективной схемы магистралей Генплана (закон г. Москвы № 17 от 05.05.2010 в ред. 2017). Связь обосновывается обслуживанием проектируемой застройки, подвозом к местам приложения труда и соседним проектом планировки Верейская — Аминьевское шоссе — Рябиновая; институт указывает на перегрузку Северо-Западной хорды и Аминьевского шоссе.</p>
+      <p class="note-mono" style="margin:10px 0 0">Институт Генплана, 22.05.2025 — позиция разработчика, требующая проверки по расчётам. Сами расчёты к ответу не приложены.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 ——————————————————————————————— -->
+<section>
+  <div class="sec-head"><span class="n">04</span><h2>Общественные обсуждения 2021 года</h2></div>
+  <p class="prose">Оповещения опубликованы 30.04.2021, экспозиция и приём замечаний проходили онлайн с 12 по 25 мая. По ППТ и по изменениям правил землепользования — <b>две разные процедуры</b> с отдельными заключениями от 11.06.2021.</p>
+
+  <div class="chart" style="margin-top:24px">
+    <div class="bar-row">
+      <span class="lbl"><b>№ 428/21 · ППТ</b>постоянно проживающие</span>
+      <div class="bar">
+        <div class="seg" style="background:var(--blue); width:42.4%" data-tip="ППТ · проживающие: поддержали 81 из 112"><span>81</span></div>
+        <div class="seg" style="background:var(--rust); width:16.2%" data-tip="ППТ · проживающие: не поддержали 31 из 112 — 27,7 %"><span>31</span></div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <span class="lbl">иные участники</span>
+      <div class="bar">
+        <div class="seg" style="background:var(--blue); width:80.6%" data-tip="ППТ · иные участники: поддержали 154 из 161 — 96 %"><span>154</span></div>
+        <div class="seg" style="background:var(--rust); width:3.7%" data-tip="ППТ · иные участники: не поддержали 7 из 161"></div>
+        <div class="seg out" style="width:0"><span>7</span></div>
+      </div>
+    </div>
+    <div class="bar-row" style="margin-top:10px">
+      <span class="lbl"><b>№ 427/21 · ПЗЗ</b>постоянно проживающие</span>
+      <div class="bar">
+        <div class="seg" style="background:var(--blue); width:56.5%" data-tip="ПЗЗ · проживающие: поддержали 108 из 152"><span>108</span></div>
+        <div class="seg" style="background:var(--rust); width:23.0%" data-tip="ПЗЗ · проживающие: не поддержали 44 из 152 — 28,9 %"><span>44</span></div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <span class="lbl">иные участники</span>
+      <div class="bar">
+        <div class="seg" style="background:var(--blue); width:95.8%" data-tip="ПЗЗ · иные участники: поддержали 183 из 191"><span>183</span></div>
+        <div class="seg" style="background:var(--rust); width:4.2%" data-tip="ПЗЗ · иные участники: не поддержали 8 из 191"></div>
+        <div class="seg out" style="width:0"><span>8</span></div>
+      </div>
+    </div>
+    <div class="key">
+      <span><i style="background:var(--blue)"></i>Поддержали, в том числе с замечаниями</span>
+      <span><i style="background:var(--rust)"></i>Не поддержали</span>
+      <span class="num" style="color:var(--ink-3)">общая шкала, 191 позиция = полная ширина</span>
+    </div>
+  </div>
+
+  <div class="two" style="margin-top:26px">
+    <div class="prose">
+      <p><b>Все</b> замечания против тоннеля под сквером — шум, вибрация, музыкальная школа, единственный сквер старой части района, предложение перенести тоннель в створ проезда № 1439 — получили рекомендацию не учитывать. Комиссия рекомендовала утвердить проект. При этом рекомендации содержат обоснования: ссылки на нормы, планировочные решения и последующую экспертизу. <b>Само отклонение замечаний не доказывает фальсификацию обсуждений.</b></p>
+      <p>По ППТ 59 % участников отнесены к категории «иные»; среди них проект поддержали 96 %. Категория не означает автоматически «посторонние» — их основания участия по опубликованной таблице не устанавливаются. <span class="tag unk">Не подтверждено</span></p>
+    </div>
+    <div>
+      <h3 style="margin-bottom:8px">Уточнение подсчёта по ПЗЗ</h3>
+      <p class="note">В первоисточнике — <span class="num">272</span> позиции «поддерживаю» без замечаний, <span class="num">19</span> «поддерживаю с замечаниями», <span class="num">52</span> «не поддерживаю». Ранее в обращениях приводились 289 / 54 и 218 — они не совпадают с подсчётом строк заключения.</p>
+      <p class="note">Позицию участника и рекомендацию комиссии нельзя считать одним показателем: строки 67 и 71 — поддержка с замечаниями, хотя комиссия замечания учитывать не рекомендует.</p>
+      <p class="note-mono">Проверено построчно: все 343 строки заключения № 427/21.</p>
+    </div>
+  </div>
+
+  <div class="sides" style="margin-top:28px">
+    <div class="side a">
+      <h3>Информирование было недостаточным</h3>
+      <div class="who">позиция жителей</div>
+      <ul>
+        <li>Название по адресу промзоны — «проезд Стройкомбината, вл. 1» — не позволяло понять последствия для старой части района.</li>
+        <li>В оповещении не перечислены затрагиваемые улицы южнее железной дороги, на сайте управы информации не было.</li>
+        <li>Экспозиция не содержала наглядной визуализации тоннеля и его выхода.</li>
+        <li>Приём замечаний шёл сразу после майских праздников.</li>
+      </ul>
+    </div>
+    <div class="side b">
+      <h3>Тоннель был показан в материалах</h3>
+      <div class="who">позиция Института Генплана</div>
+      <ul>
+        <li>Размещение тоннеля показано в текстовых и графических материалах ППТ.</li>
+        <li>Оповещения опубликованы на «Активном гражданине», mos.ru и сайте префектуры ЗАО.</li>
+        <li>Экспозиция и приём замечаний — с 08:00 12.05.2021 до 23:59 25.05.2021.</li>
+      </ul>
+      <p class="note-mono" style="margin-top:10px">Полный архив оповещения и экспозиции в комплекте отсутствует; отсутствие наглядной визуализации не тождественно отсутствию тоннеля в чертежах.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5 ——————————————————————————————— -->
+<section>
+  <div class="sec-head"><span class="n">05</span><h2>Хронология</h2></div>
+  <p class="prose" style="margin-bottom:20px">От ремонта сквера до заключённого договора — с указанием, чем подтверждено каждое событие. Фильтр переключает состав ленты.</p>
+
+  <div class="filters" role="group" aria-label="Фильтр хронологии">
+    <button type="button" data-f="all" aria-pressed="true">Все события</button>
+    <button type="button" data-f="doc" aria-pressed="false">По документам</button>
+    <button type="button" data-f="res" aria-pressed="false">Со слов жителей</button>
+    <button type="button" data-f="fut" aria-pressed="false">Плановые сроки</button>
+  </div>
+
+  <div class="tl" id="tl">
+    <div class="tl-era" data-era>2015 — 2021 · решение</div>
+    <div class="ev" data-k="res"><span class="d">2015</span><span class="t">Ремонт сквера, его называют «народным парком»<span class="tag res">Со слов жителей</span></span></div>
+    <div class="ev" data-k="res"><span class="d">март 2021</span><span class="t">Заместитель главы управы анонсирует благоустройство сквера<span class="tag res">Со слов жителей</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">30.04.2021</span><span class="t">Оповещения об обсуждениях ППТ и ПЗЗ; страницы debates/1174 и debates/1175<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">12–25.05.2021</span><span class="t">Онлайн-экспозиция и приём замечаний<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">11.06.2021</span><span class="t">Заключения № 428/21 по ППТ и № 427/21 по ПЗЗ<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="res"><span class="d">13.08.2021</span><span class="t">Опубликован проект постановления — по ссылке жителей на антикоррупционную экспертизу<span class="tag res">Со слов жителей</span></span></div>
+    <div class="ev key-ev" data-k="doc"><span class="d">07.10.2021</span><span class="t">ПП № 1587-ПП: ППТ утверждён, сквер 0,78 га исключён, образованы ПК № 113а и 113б<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">19.10.2021</span><span class="t">ПП № 1640-ПП по железнодорожной инфраструктуре Киевского направления — смежный проект<span class="tag doc">Документ</span></span></div>
+
+    <div class="tl-era" data-era>2021 — 2022 · кампания жителей</div>
+    <div class="ev" data-k="doc"><span class="d">03–09.12.2021</span><span class="t">Газета «На Западе Москвы» № 47 (684): статья и. о. главы управы «Тоннель решит проблему». Сквер в ней не упомянут<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="res"><span class="d">04–05.12.2021</span><span class="t">Телеграм-чат защиты сквера, листовки, начало сбора подписей<span class="tag res">Со слов жителей</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">10–11.12.2021</span><span class="t">Публикация «Москвич Mag»; депутат ГД Г. П. Хованская направляет запрос мэру<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="res"><span class="d">15.12.2021</span><span class="t">Управа просит МКА изменить ППТ и рассмотреть тоннель к 1-му Очаковскому переулку; копии письма нет<span class="tag res">Со слов жителей</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">24.12.2021</span><span class="t">Обращение жителей в районный Совет ветеранов<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="res"><span class="d">03.03.2022</span><span class="t">Передача обращений в приёмные со сканами 2900 подписей<span class="tag res">Со слов жителей</span></span></div>
+    <div class="ev" data-k="res"><span class="d">к маю 2022</span><span class="t">Свыше 3000 подписей; оригиналы подписных листов в комплекте отсутствуют<span class="tag res">Со слов жителей</span></span></div>
+    <div class="ev" data-k="res"><span class="d">2022</span><span class="t">Комиссия по наименованиям откладывает вопрос об имени сквера до транспортного анализа; протокола нет<span class="tag res">Со слов жителей</span></span></div>
+    <div class="ev" data-k="res"><span class="d">09.07.2022 — 29.06.2024</span><span class="t">Благоустройство сквера в составе работ возле МЦД «Очаково»; приёмочного акта нет<span class="tag res">Со слов жителей</span></span></div>
+
+    <div class="tl-era" data-era>2024 — 2025 · встречи и ответы</div>
+    <div class="ev" data-k="doc"><span class="d">08.10.2024</span><span class="t">ПП № 2251-ПП об АИП 2024–2027 — основание, указанное в головном ТЗ<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">26.12.2024 · 12.03.2025</span><span class="t">Две встречи инициативной группы с Москомархитектурой, вторая — с Институтом Генплана<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">22.05.2025</span><span class="t">Ответ Института Генплана: створ из Генплана, альтернатива через 1-й Очаковский отвергнута<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">22.07.2025</span><span class="t">Ответ МКА: обсуждения по изменениям ППТ в 2022–2025 годах не требуются; госзаказчик — ДСТИ<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">14.10.2025</span><span class="t">ПП № 2464-ПП об АИП 2025–2028; объём по объекту — 12,6 млрд ₽<span class="tag doc">Документ</span></span></div>
+
+    <div class="tl-era" data-era>2025 — 2026 · договор и стройка</div>
+    <div class="ev" data-k="doc"><span class="d">23.10.2025</span><span class="t">ДМИС объявляет конкурс COM23102500127, начальная цена 11 063 595 420,89 ₽<span class="tag doc">Документ</span></span></div>
+    <div class="ev key-ev" data-k="doc"><span class="d">06.11.2025</span><span class="t">Комиссия решает заключить договор с единственным участником — АО «МСУ-1», без снижения цены<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">12.12.2025</span><span class="t">Ответ МКА на запрос депутата ГД С. П. Обухова: компенсация 3,74 га «для соблюдения баланса»<span class="tag doc">Документ</span></span></div>
+    <div class="ev key-ev" data-k="doc"><span class="d">16.12.2025</span><span class="t">ДСТИ: контракт с МСУ-1 заключён, реализация запланирована на 2029 год, «на месте сквера запланировано размещение тоннельного пересечения»<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">16.06.2026</span><span class="t">ПП № 1671-ПП: показатель «выполнено на 01.01.2026» — 6 400 млн ₽; основной объём сдвинут на 2028 год<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">29.07.2026</span><span class="t">Мосводоканал объявляет закупку № 32616247012 на вынос канализации, 56,79 млн ₽<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">27.08.2026</span><span class="t">Решение заключить договор с единственным участником за 56 788 103,79 ₽. Факт подписания протоколом не подтверждается<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">09.09.2026</span><span class="t">Выгрузка ОАТИ: действующего ордера, относимого к тоннелю, не выявлено<span class="tag doc">Документ</span></span></div>
+    <div class="ev" data-k="doc"><span class="d">12.09.2026</span><span class="t">Выборка ЕГРЗ по слову «Поливановой»: заключение по головному объекту не найдено<span class="tag doc">Документ</span></span></div>
+
+    <div class="tl-era" data-era>Плановые сроки — не состоявшиеся события</div>
+    <div class="ev fut" data-k="fut"><span class="d">01.10.2026 — 28.02.2027</span><span class="t">Изыскания, проектирование, экспертиза и согласования по выносу канализации<span class="tag unk">План</span></span></div>
+    <div class="ev fut" data-k="fut"><span class="d">01.02 — 15.06.2027</span><span class="t">Подготовительные и основные СМР по канализации<span class="tag unk">План</span></span></div>
+    <div class="ev fut" data-k="fut"><span class="d">30.11.2027</span><span class="t">Срок исполнения по проекту договора Мосводоканала<span class="tag unk">План</span></span></div>
+    <div class="ev fut" data-k="fut"><span class="d">сент.–окт. 2028</span><span class="t">Расчётный предел 1040 дней по документации головной закупки<span class="tag unk">Расчёт</span></span></div>
+    <div class="ev fut" data-k="fut"><span class="d">2029</span><span class="t">Реализация головного объекта по письму ДСТИ; точной даты ввода нет<span class="tag unk">План</span></span></div>
+    <div class="ev fut" data-k="fut"><span class="d">не установлено</span><span class="t">Фактическое начало строительства тоннеля и дата вырубки сквера<span class="tag unk">Не подтверждено</span></span></div>
+  </div>
+
+  <p class="note prose wide" style="margin-top:18px">Подписи жителей: более 500 человек в группе (декабрь 2021), 1000+ в обращении Президенту, 2900 сканов в марте 2022, 3000+ к маю 2022, более 3100 в поздних текстах. Все цифры — <b>со слов инициативной группы</b>; оригиналы подписных листов в доступном комплекте отсутствуют.</p>
+</section>
+
+<!-- 6 ——————————————————————————————— -->
+<section>
+  <div class="sec-head"><span class="n">06</span><h2>Деньги</h2></div>
+  <p class="prose">Предельный объём в Адресной инвестиционной программе — <b>12 600 млн ₽</b> — сохраняется во всех трёх сохранённых редакциях. Меняется распределение по годам: в июньской редакции 2026 года основной объём уходит на 2028 год.</p>
+
+  <div class="aip" style="margin-top:22px">
+    <div>
+      <h3>Осень 2025</h3>
+      <div class="cap">позиция 662</div>
+      <div class="yr"><span class="y">2025</span><span class="track"><span class="fill" style="width:39.1%" data-tip="2025 — 2 500 млн ₽"></span></span><span class="amt">2 500</span></div>
+      <div class="yr"><span class="y">2026</span><span class="track"><span class="fill" style="width:70.3%" data-tip="2026 — 4 500 млн ₽"></span></span><span class="amt">4 500</span></div>
+      <div class="yr"><span class="y">2027</span><span class="track"><span class="fill" style="width:32.2%" data-tip="2027 — 2 058,07 млн ₽"></span></span><span class="amt">2 058</span></div>
+      <div class="yr"><span class="y">2028</span><span class="track"><span class="fill" style="width:55.3%" data-tip="2028 — 3 541,93 млн ₽"></span></span><span class="amt">3 542</span></div>
+    </div>
+    <div>
+      <h3>02.12.2025</h3>
+      <div class="cap">№ 2975-ПП · позиция 625</div>
+      <div class="yr"><span class="y">2025</span><span class="track"><span class="fill" style="width:34.4%" data-tip="2025 — 2 200 млн ₽"></span></span><span class="amt">2 200</span></div>
+      <div class="yr"><span class="y">2026</span><span class="track"><span class="fill" style="width:75.0%" data-tip="2026 — 4 800 млн ₽"></span></span><span class="amt">4 800</span></div>
+      <div class="yr"><span class="y">2027</span><span class="track"><span class="fill" style="width:32.2%" data-tip="2027 — 2 058,07 млн ₽"></span></span><span class="amt">2 058</span></div>
+      <div class="yr"><span class="y">2028</span><span class="track"><span class="fill" style="width:55.3%" data-tip="2028 — 3 541,93 млн ₽"></span></span><span class="amt">3 542</span></div>
+    </div>
+    <div>
+      <h3>16.06.2026</h3>
+      <div class="cap">№ 1671-ПП · позиция 690</div>
+      <div class="yr"><span class="y">2025</span><span class="track"><span class="fill" style="width:100%" data-tip="2025 — 6 400 млн ₽"></span></span><span class="amt">6 400</span></div>
+      <div class="yr"><span class="y">2026</span><span class="track"><span class="fill" style="width:2.7%" data-tip="2026 — 171 млн ₽"></span></span><span class="amt">171</span></div>
+      <div class="yr"><span class="y">2027</span><span class="track"><span class="fill" style="width:8.5%" data-tip="2027 — 542,4292 млн ₽"></span></span><span class="amt">542</span></div>
+      <div class="yr"><span class="y">2028</span><span class="track"><span class="fill" style="width:85.7%" data-tip="2028 — 5 486,5708 млн ₽"></span></span><span class="amt">5 487</span></div>
+    </div>
+  </div>
+  <p class="note-mono" style="margin-top:10px">Все значения — млн ₽, показатели АИП. Общая шкала: 6 400 млн ₽ = полная ширина.</p>
+
+  <div class="two" style="margin-top:26px">
+    <div class="prose">
+      <p><b>Чего из этой таблицы установить нельзя.</b> «Выполнено на 01.01.2026» — графа АИП, а не акт выполненных работ и не банковский остаток. Из неё нельзя понять, сколько получил МСУ-1, сколько работ принято и какой остаток на счёте ДМИС. Графу «выполнено» и строку 2025 года <b>нельзя складывать</b>: это не два отдельных платежа. Разницу между 12,6 млрд ₽ и ценой закупки 11,06 млрд ₽ нельзя без расшифровки называть экономией. <span class="tag unk">Не подтверждено</span></p>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px">Вынос канализации — связанная закупка</h3>
+      <dl class="spec">
+        <div><dt>Основание</dt><dd>соглашение № 126-26/В<br>от 15.06.2026 с ДМИС</dd></div>
+        <div><dt>Начальная цена</dt><dd>56 793 783,17 ₽</dd></div>
+        <div><dt>Решение 27.08.2026</dt><dd>56 788 103,79 ₽</dd></div>
+        <div><dt>Снижение</dt><dd>5 679,38 ₽ · 0,01 %</dd></div>
+        <div><dt>Трубопроводы</dt><dd>≈113 м, микротоннелирование</dd></div>
+      </dl>
+      <p class="note" style="margin-top:10px"><b>Закупка подтверждена; начало земляных работ — нет.</b> Это канализационные работы, а не строительство автомобильного тоннеля. Наименование участника в протоколе не указано.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7 ——————————————————————————————— -->
+<section>
+  <div class="sec-head"><span class="n">07</span><h2>Позиция жителей</h2></div>
+  <p class="prose">Аргументы и требования инициативной группы. Оценки нужности тоннеля и качества ответов органов <b>не выдаются</b> за независимое транспортное или правовое заключение.</p>
+
+  <div class="sides" style="margin-top:24px">
+    <div class="side a">
+      <h3>Связи через железную дорогу уже есть</h3>
+      <div class="who">возражение · требует проверки обмером</div>
+      <ul>
+        <li>Очаковский путепровод примерно в 700–900 м, пешеходный тоннель у станции «Очаково» в 200–300 м, надземный переход. Расстояния приведены по обращениям, отдельного обмера не было.</li>
+        <li>Четырёхполосный тоннель выводит движение к Большой Очаковской и Озёрной — двухполосным и перегруженным. Их отдельная реконструкция в изученном ТЗ не перечислена.</li>
+      </ul>
+    </div>
+    <div class="side a">
+      <h3>Сквер и то, что рядом</h3>
+      <div class="who">возражение · частично подтверждено ТЗ</div>
+      <ul>
+        <li>Единственная благоустроенная зелёная зона старой части района, память о Марии Поливановой, деревья, высаженные жителями в 1960–1970-х; оценка «более 200 деревьев» — по обращениям.</li>
+        <li>Рядом музыкальная школа им. М. Л. Таривердиева, другие учебные и медицинские учреждения. В ТЗ предусмотрено обследование <b>десяти</b> зданий в зоне влияния котлована — это подтверждает необходимость оценки, но не доказывает неизбежное повреждение домов.</li>
+        <li>Компенсация 3,74 га — на другой стороне железной дороги; она не восстанавливает сквер на прежнем месте.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:30px 0 12px">Сохраняющиеся требования</h3>
+  <ol class="reqs">
+    <li>Пересмотреть ПП № 1587-ПП: пункт 1 в части утверждения тоннеля на участках № 23, 24 и пункт 2 об исключении ПК № 113; сохранить сквер и восстановить его статус природной и озеленённой территории.</li>
+    <li>Решить вопрос об имени и увековечении памяти М. С. Поливановой, дать отдельный ответ по предложению охраны сквера как культурного наследия.</li>
+    <li>Проверить информирование, учёт замечаний и основания участия в обсуждениях 2021 года, раскрыть проверяемые сведения о составе участников.</li>
+    <li>Пересмотреть финансирование тоннеля и направить средства на приоритетные для жителей объекты: поликлиники, школы, детские сады, спорткомплекс с бассейном, шумозащиту вдоль МЖД.</li>
+  </ol>
+  <p class="note" style="margin-top:12px">Присвоение имени, мемориальное использование и охранный статус объекта культурного наследия — <b>разные вопросы</b>; подтверждения уже присвоенного статуса ОКН нет.</p>
+</section>
+
+<!-- 8 ——————————————————————————————— -->
+<section>
+  <div class="sec-head"><span class="n">08</span><h2>Границы знания</h2></div>
+  <p class="prose" style="margin-bottom:22px">Что по имеющимся материалам установить нельзя — и потому не утверждается ни в одну, ни в другую сторону.</p>
+
+  <div class="gaps">
+    <div class="gap">
+      <h3>Фактическая стадия стройки</h3>
+      <p>Нет подписанного головного графика, актов выполнения, актуальной полной проверки разрешений и экспертизы. Даты вырубки нет. Отсутствие записи в ограниченной выборке — не доказательство отсутствия документа.</p>
+    </div>
+    <div class="gap">
+      <h3>Деньги</h3>
+      <p>АИП подтверждает показатели программы, но не банковский остаток ДМИС, не оплату МСУ-1 и не строительную готовность. Нужны сведения об исполнении субсидии и договора.</p>
+    </div>
+    <div class="gap">
+      <h3>Экология и транспорт</h3>
+      <p>Нет полного транспортного расчёта, исходных акустических материалов, дендроплана и перечня вырубаемых деревьев. Из наличия тоннеля в ППТ нельзя вывести число деревьев под вырубку или превышение шума.</p>
+    </div>
+    <div class="gap">
+      <h3>Обсуждения</h3>
+      <p>Оба заключения получены, подсчёт по ПЗЗ исправлен. Нет полного архива экспозиции и материалов проверки участников; версия о ботах не установлена.</p>
+    </div>
+    <div class="gap">
+      <h3>Кампания 2021–2024</h3>
+      <p>Часть дат, 2900 и 3000+ подписей, письмо управы, решение комиссии по наименованиям и благоустройство известны из дополнения жителей и не заменяют отсутствующие оригиналы.</p>
+    </div>
+    <div class="gap">
+      <h3>Смежные решения</h3>
+      <p>Полные приложения к ПП № 1640-ПП и все последующие изменения АИП и ППТ не собраны. Реновация, благоустройство и железнодорожные работы учитываются отдельно от тоннеля.</p>
+    </div>
+  </div>
+
+  <h3 style="margin:30px 0 12px">Какие документы нужно запросить</h3>
+  <div class="two">
+    <div class="prose">
+      <p class="note"><b>ДСТИ и ДМИС.</b> Подписанный договор с МСУ-1 — дата, номер, цена, дополнительные соглашения; действующий график и плановые даты подготовки территории и вырубки; объяснение соотношения 1040 дней, срока 2029 и редакций АИП; отчёт об использовании средств; статус проектирования и экспертизы.</p>
+      <p class="note"><b>Мосводоканал.</b> Подписанный договор по закупке № 32616247012, наименование подрядчика, действующий календарный план; статус экспертизы, земельных документов и ордеров; соглашение № 126-26/В.</p>
+      <p class="note"><b>Институт Генплана и МКА.</b> Транспортные расчёты по выбранной трассе и альтернативам, сценарий без тоннеля, нагрузка на Большую Очаковскую и Озёрную; расчёты шума с результатами для существующих домов и музыкальной школы.</p>
+    </div>
+    <div class="prose">
+      <p class="note"><b>МКА, управа, комиссия по наименованиям.</b> Письмо управы от 15.12.2021 и ответ на него; протокол решения 2022 года об отложенном наименовании; полный ответ от 17.04.2024; сведения о последующих изменениях ППТ и процедуре их утверждения.</p>
+      <p class="note"><b>Организатор общественных обсуждений.</b> Оповещения и полный архив экспозиций 2021 года, протоколы, сведения о проверке права участия и обезличенный состав участников.</p>
+      <p class="note"><b>Департамент природопользования и заказчики.</b> Дендроплан, перечётная ведомость, порубочные документы, проект компенсационного озеленения и его исполнение; договоры и акты благоустройства 2022–2024 годов.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 9 ——————————————————————————————— -->
+<section>
+  <div class="sec-head"><span class="n">09</span><h2>Источники</h2></div>
+  <div class="srcs">
+    <div>
+      <h3>Планировочные решения и обсуждения</h3>
+      <ul>
+        <li><a href="https://docs.cntd.ru/document/608998911">Постановление № 1587-ПП от 07.10.2021</a> — карточка документа; приложение 1 на 82 листах, границы ПК № 113а и 113б</li>
+        <li><a href="https://ag.mos.ru/debates/1174">Обсуждение ППТ № 1174</a> и <a href="https://ag.mos.ru/debates/1175">обсуждение ПЗЗ № 1175</a> — разные процедуры</li>
+        <li>Заключения № 428/21 и № 427/21 от 11.06.2021; построчный подсчёт 343 позиций ПЗЗ — <code>refs/ППТ_1587-ПП/</code></li>
+      </ul>
+      <h3 style="margin-top:18px">Публикации</h3>
+      <ul>
+        <li><a href="https://zao.mos.ru/upload_local/iblock/4ce/4ce9101a71ed0946d1e2459647bfa4d7/aifnzm_47_complete_optimize.pdf">«На Западе Москвы» № 47 (684), 03–09.12.2021</a> — статья «Тоннель решит проблему», полоса 6</li>
+        <li><a href="https://moskvichmag.ru/gorod/zhiteli-ochakovo-matveevskogo-zashhishhayut-skver-na-meste-kotorogo-hotyat-postroit-dorogu-s-tonnelem/">«Москвич Mag», 10.12.2021</a> — раннее освещение конфликта</li>
+        <li><a href="https://spravedlivo.ru/11703810">Запрос депутата Г. П. Хованской мэру, 11.12.2021</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Закупки, финансирование и реестры</h3>
+      <ul>
+        <li><a href="https://www.roseltorg.ru/procedure/COM23102500127">Головная закупка COM23102500127</a> — ТЗ, ведомость объёмов, проект договора, график, протокол</li>
+        <li><a href="https://zakupki.gov.ru/epz/order/notice/notice223/common-info.html?regNumber=32616247012">Закупка Мосводоканала № 32616247012</a> — вынос канализации</li>
+        <li><a href="https://c-inf.ru/plan-zakupok/">Планы закупок ДМИС</a> — версии 2025 и 2026 годов</li>
+        <li><a href="https://data.mos.ru/opendata/2855">Реестр ордеров ОАТИ</a> — выгрузка на 09.09.2026; выборка ЕГРЗ от 12.09.2026</li>
+        <li>Три редакции АИП: осень 2025, № 2975-ПП от 02.12.2025, № 1671-ПП от 16.06.2026</li>
+      </ul>
+      <h3 style="margin-top:18px">Ответы ведомств</h3>
+      <ul>
+        <li>Институт Генплана, 22.05.2025, ГП-20-451/25-1</li>
+        <li>Москомархитектура, 22.07.2025, МКА-20-10887/25-1 и 12.12.2025, МКА-05-710/25-2</li>
+        <li>ДСТИ, 16.12.2025, 12-3452/25-2 — контракт, срок 2029, тоннель «на месте сквера»</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    <p>Инфографика собрана по справке «История вопроса и хронология» инициативной группы жителей района Очаково-Матвеевское, проверенной и дополненной 13 сентября 2026 года. Документ сопоставлен с постановлением и приложениями, материалами двух закупок, тремя редакциями АИП, выгрузками ОАТИ и ЕГРЗ, четырьмя официальными ответами и шестью текстами обращений. Ссылки вида <code>refs/…</code> указывают на локальные файлы комплекта, в сеть не опубликованные.</p>
+    <p style="margin-bottom:0">При поступлении нового материала фиксируется дата самого события, реквизиты источника и дата проверки. Плановые даты заменяются фактическими только при появлении подтверждения.</p>
+  </footer>
+</section>
+
+</div>
+
+<div id="tip" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  // —— фильтр хронологии ——
+  var tl = document.getElementById('tl');
+  var btns = Array.prototype.slice.call(document.querySelectorAll('.filters button'));
+  var evs = Array.prototype.slice.call(tl.querySelectorAll('.ev'));
+  var eras = Array.prototype.slice.call(tl.querySelectorAll('[data-era]'));
+
+  function apply(f){
+    evs.forEach(function(e){ e.hidden = (f !== 'all' && e.getAttribute('data-k') !== f); });
+    eras.forEach(function(era){
+      var any = false, n = era.nextElementSibling;
+      while (n && !n.hasAttribute('data-era')) { if (!n.hidden) any = true; n = n.nextElementSibling; }
+      era.hidden = !any;
+    });
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-f') === f)); });
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.getAttribute('data-f')); }); });
+
+  // —— подсказки на диаграммах ——
+  var tip = document.getElementById('tip');
+  function show(el, x, y){
+    tip.textContent = el.getAttribute('data-tip');
+    tip.classList.add('on');
+    var r = tip.getBoundingClientRect();
+    var left = Math.min(Math.max(8, x - r.width / 2), window.innerWidth - r.width - 8);
+    var top = y - r.height - 12;
+    if (top < 8) top = y + 18;
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+  function hide(){ tip.classList.remove('on'); }
+
+  document.addEventListener('pointermove', function(e){
+    var t = e.target.closest ? e.target.closest('[data-tip]') : null;
+    if (t) show(t, e.clientX, e.clientY); else hide();
+  });
+  document.addEventListener('pointerleave', hide);
+  document.addEventListener('scroll', hide, true);
+})();
+</script>
